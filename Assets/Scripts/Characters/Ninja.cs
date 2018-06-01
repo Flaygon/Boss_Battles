@@ -142,6 +142,7 @@ public class Ninja : MonoBehaviour
             if(currentAttackSpeed >= attackSpeed)
             {
                 currentAttackSpeed = 0.0f;
+                attacking = false;
 
                 GameObject attackEffect = Instantiate(attackAsset, new Vector3(transform.position.x + lastMovementDirection * attackDistance, transform.position.y + Random.Range(-attackDistance, attackDistance), 0.0f), Quaternion.identity) as GameObject;
                 attackEffect.transform.Rotate(0.0f, 0.0f, Random.Range(-60.0f, 60.0f));

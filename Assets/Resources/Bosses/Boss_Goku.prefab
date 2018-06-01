@@ -46,6 +46,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1729836381719214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4195479836303638}
+  m_Layer: 8
+  m_Name: Attack Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4195479836303638
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1729836381719214}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.193, y: 0.243, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4767269985065236}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4423818034982274
 Transform:
   m_ObjectHideFlags: 1
@@ -70,6 +98,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 4423818034982274}
+  - {fileID: 4195479836303638}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145,13 +174,21 @@ MonoBehaviour:
   invincible: 0
   healthBar: {fileID: 0}
   animator: {fileID: 95860194981493080}
+  projectileAsset: {fileID: 1832635672797462, guid: 4ba921da5c145824e9aa030692eae58c,
+    type: 2}
   firstAttackTimer: 2
   firstAttacks: 5
   betweenFirstAttacks: 0.2
   fallingBeginTime: 0.1
   fallingEndTime: 0.2
   gravity: 9.82
+  maxMovementSpeed: 2
+  jumpSpeed: 10
   maxfallSpeed: 15
+  playerRange: 2
+  playerAttachTime: 15
+  attackPosition: {fileID: 4195479836303638}
+  levelManager: {fileID: 0}
 --- !u!212 &212958472558907010
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -192,7 +229,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.3, y: 0.46}
+  m_Size: {x: 0.31, y: 0.44}
   m_AdaptiveModeThreshold: 0.381
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

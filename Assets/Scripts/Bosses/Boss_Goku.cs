@@ -14,6 +14,8 @@ public class Boss_Goku : MonoBehaviour
 
     public Animator animator;
 
+    public GameObject projectileAsset;
+
     public float firstAttackTimer;
     private float currentFirstAttackTimer;
     public int firstAttacks;
@@ -29,7 +31,20 @@ public class Boss_Goku : MonoBehaviour
     public float gravity;
     private Vector3 velocity;
 
+    public float maxMovementSpeed;
+    public float jumpSpeed;
     public float maxfallSpeed;
+
+    public float playerRange;
+
+    public float playerAttachTime;
+    private float currentPlayerAttachTime;
+    private int currentAttackedPlayer;
+
+    public Transform attackPosition;
+
+    [HideInInspector]
+    public LevelManager levelManager;
 
     private enum States
     {
@@ -45,6 +60,8 @@ public class Boss_Goku : MonoBehaviour
     private void Start()
     {
         currentHealth = health;
+
+        AttackNewPlayer();
     }
 
     private void Update()
@@ -58,24 +75,52 @@ public class Boss_Goku : MonoBehaviour
             position.y = -Camera.main.orthographicSize;
         }
 
-        transform.position = position;
-
         if (currentState == States.IDLE_FIRST && position.y > -Camera.main.orthographicSize)
         {
-            currentState = States.FALLING_BEGIN;
-            animator.SetTrigger(currentState.ToString());
+            SetState(States.FALLING_BEGIN);
         }
+
+        currentPlayerAttachTime += Time.deltaTime;
 
         switch (currentState)
         {
             case States.IDLE_FIRST:
                 {
+                    transform.rotation = Quaternion.identity;
+                    Vector3 distanceToPlayer = levelManager.players[currentAttackedPlayer].transform.position - transform.position;
+                    Vector3 directionToPlayer = distanceToPlayer.normalized;
+                    if (Vector3.Dot(directionToPlayer, Vector3.right) < 0.0f)
+                    {
+                        transform.Rotate(0.0f, 180.0f, 0.0f);
+
+                        if (distanceToPlayer.magnitude > playerRange)
+                            position.x -= maxMovementSpeed * Time.deltaTime;
+                    }
+                    else
+                    {
+                        if (distanceToPlayer.magnitude > playerRange)
+                            position.x += maxMovementSpeed * Time.deltaTime;
+                    }
+
+                    if (Vector3.Dot(directionToPlayer, Vector3.up) > 0.75f)
+                    {
+                        SetState(States.FALLING_BEGIN);
+
+                        velocity.y = jumpSpeed;
+                    }
+
                     currentFirstAttackTimer += Time.deltaTime;
                     if (currentFirstAttackTimer >= firstAttackTimer)
                     {
                         currentFirstAttackTimer = 0.0f;
-                        currentState = States.ATTACK_FIRST;
-                        animator.SetTrigger(currentState.ToString());
+                        SetState(States.ATTACK_FIRST);
+
+                        if(currentPlayerAttachTime >= playerAttachTime)
+                        {
+                            currentPlayerAttachTime = 0.0f;
+
+                            AttackNewPlayer();
+                        }
                     }
 
                     break;
@@ -88,13 +133,13 @@ public class Boss_Goku : MonoBehaviour
                         currentBetweenFirstAttacks = 0.0f;
                         ++currentFirstAttacks;
 
-                        // make attack
+                        GameObject newAttack = Instantiate(projectileAsset, attackPosition.position, Quaternion.identity);
+                        newAttack.GetComponent<TurnTowardsTarget>().target = levelManager.players[currentAttackedPlayer].transform;
 
                         if(currentFirstAttacks >= firstAttacks)
                         {
                             currentFirstAttacks = 0;
-                            currentState = States.IDLE_FIRST;
-                            animator.SetTrigger(currentState.ToString());
+                            SetState(States.IDLE_FIRST);
                         }
                     }
                     break;
@@ -107,8 +152,7 @@ public class Boss_Goku : MonoBehaviour
                         currentFallingBeginTime = 0.0f;
                         ++currentFirstAttacks;
 
-                        currentState = States.FALLING;
-                        animator.SetTrigger(currentState.ToString());
+                        SetState(States.FALLING);
                     }
                     break;
                 }
@@ -116,8 +160,7 @@ public class Boss_Goku : MonoBehaviour
                 {
                     if (position.y <= -Camera.main.orthographicSize)
                     {
-                        currentState = States.FALLING_END;
-                        animator.SetTrigger(currentState.ToString());
+                        SetState(States.FALLING_END);
                     }
                     break;
                 }
@@ -129,12 +172,19 @@ public class Boss_Goku : MonoBehaviour
                     {
                         currentFallingEndTime = 0.0f;
 
-                        currentState = States.IDLE_FIRST;
-                        animator.SetTrigger(currentState.ToString());
+                        SetState(States.IDLE_FIRST);
                     }
                     break;
                 }
         }
+
+        transform.position = position;
+    }
+
+    private void SetState(States toSet)
+    {
+        currentState = toSet;
+        animator.SetTrigger(currentState.ToString());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -159,5 +209,19 @@ public class Boss_Goku : MonoBehaviour
         }
 
         healthBar.fillAmount = currentHealth / (float)health;
+    }
+
+    private void AttackNewPlayer()
+    {
+        int numPlayers = 0;
+        for(int iPlayers = 0; iPlayers < levelManager.players.Length; ++iPlayers)
+        {
+            if(levelManager.players[iPlayers] != null)
+            {
+                ++numPlayers;
+            }
+        }
+
+        currentAttackedPlayer = Random.Range(0, numPlayers);
     }
 }

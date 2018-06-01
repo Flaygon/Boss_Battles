@@ -11,7 +11,8 @@ public class LevelManager : MonoBehaviour
     public Transform[] playerSpawns;
 
     private GameObject spawnedBoss;
-    private GameObject[] players = { null, null, null, null };
+    [HideInInspector]
+    public GameObject[] players = { null, null, null, null };
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class LevelManager : MonoBehaviour
         Object[] bosses = Resources.LoadAll("Bosses");
         spawnedBoss = Instantiate(bosses[boss]) as GameObject;
         spawnedBoss.GetComponent<Boss_Goku>().healthBar = bossHealth;
+        spawnedBoss.GetComponent<Boss_Goku>().levelManager = this;
 
         // spawn player on random spawn point
         int numPlayers = PlayerPrefs.GetInt("NumPlayers", 0);
@@ -26,7 +28,7 @@ public class LevelManager : MonoBehaviour
         for(int iPlayer = 0; iPlayer < numPlayers + 1; ++iPlayer)
         {
             int playerCharacter = PlayerPrefs.GetInt("Player_" + iPlayer + "_Character", 0);
-            players[iPlayer] = Instantiate(characters[playerCharacter]) as GameObject;
+            players[iPlayer] = Instantiate(characters[playerCharacter], playerSpawns[iPlayer].position, Quaternion.identity) as GameObject;
             players[iPlayer].GetComponent<Player>().playerNum = iPlayer;
         }
     }
@@ -34,6 +36,6 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         if (spawnedBoss == null || (players[0] == null && players[1] == null && players[2] == null && players[3] == null))
-            SceneManager.LoadScene("mainmenu");
+            SceneManager.LoadScene("charactermenu");
     }
 }

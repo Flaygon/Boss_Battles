@@ -227,6 +227,11 @@ MonoBehaviour:
   - {fileID: 348260167}
   - {fileID: 419394405}
   - {fileID: 1269405195}
+  players:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &223719104
 Transform:
   m_ObjectHideFlags: 0
