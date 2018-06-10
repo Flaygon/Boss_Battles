@@ -238,7 +238,7 @@ MonoBehaviour:
   movementSpeed: 6
   attackSpeed: 0.1
   attackDistance: 0.75
-  attackDamage: 1
+  attackDamage: 10
   attackAsset: {fileID: 1430279999686432, guid: fafe5d4527a059947a69fe6f145314e1,
     type: 2}
   attackLayer:

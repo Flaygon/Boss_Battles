@@ -12,11 +12,27 @@ public class TurnTowardsTarget : MonoBehaviour
     public Vector3 forwardDirection;
     public Vector3 perpendicularToForward;
 
+    public bool initialTarget;
+
+    private void Start()
+    {
+        if(initialTarget)
+        {
+            Vector3 localForward = transform.rotation * forwardDirection;
+            Vector3 targetDirection = (target.position - transform.position).normalized;
+            if (Vector3.Dot(localForward, targetDirection) <= 0.999f)
+            {
+                Vector3 localPerpendicular = transform.rotation * perpendicularToForward;
+                transform.Rotate(0.0f, 0.0f, Vector3.SignedAngle(localForward, targetDirection, localForward));
+            }
+        }
+    }
+
     private void Update()
     {
         Vector3 localForward = transform.rotation * forwardDirection;
         Vector3 targetDirection = (target.position - transform.position).normalized;
-        if (Vector3.Dot(localForward, targetDirection) <= 0.987f)
+        if (Vector3.Dot(localForward, targetDirection) <= 0.999f)
         {
             Vector3 localPerpendicular = transform.rotation * perpendicularToForward;
             if(Vector3.Dot(localPerpendicular, targetDirection) >= 0.0f)
@@ -28,6 +44,5 @@ public class TurnTowardsTarget : MonoBehaviour
                 transform.Rotate(0.0f, 0.0f, -turnSpeed * Time.deltaTime);
             }
         }
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, turnSpeed);
     }
 }

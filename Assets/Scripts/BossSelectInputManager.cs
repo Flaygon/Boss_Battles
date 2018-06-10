@@ -90,7 +90,7 @@ public class BossSelectInputManager : MonoBehaviour
 
         if (Input.GetAxis("Jump 0") > 0.5f)
         {
-            SceneManager.LoadScene("level");
+            SceneManager.LoadScene((bossesAvailable[selectedBoss] as GameObject).GetComponent<BossInformation>().level);
         }
 
         if (Input.GetAxis("Cancel") > 0.5f)

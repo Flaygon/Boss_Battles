@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
 
     public bool dummy;
 
+    [HideInInspector]
+    public LevelManager levelManager;
+
     public float GetAxis(string axis)
     {
         return !dummy ? Input.GetAxis(axis + " " + playerNum) : 0.0f;

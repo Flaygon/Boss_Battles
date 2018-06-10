@@ -75,6 +75,16 @@ public class Viking : MonoBehaviour
             airborne = false;
         }
 
+        // Restraining within view
+        if (newPosition.x < -Camera.main.orthographicSize)
+        {
+            newPosition.x = -Camera.main.orthographicSize;
+        }
+        else if (newPosition.x > Camera.main.orthographicSize)
+        {
+            newPosition.x = Camera.main.orthographicSize;
+        }
+
         transform.position = newPosition;
     }
 

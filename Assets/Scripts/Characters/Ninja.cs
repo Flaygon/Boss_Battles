@@ -121,13 +121,24 @@ public class Ninja : MonoBehaviour
         newPosition += velocity * Time.deltaTime;
 
         // Restraining to ground
-        if (airborne && newPosition.y < -(Camera.main.orthographicSize + feet.localPosition.y))
+        Level currentLevel = player.levelManager.GetCurrentLevel();
+        if (airborne && newPosition.y < currentLevel.transform.position.y + currentLevel.playerBounds.min.y - feet.localPosition.y)
         {
-            newPosition.y = -(Camera.main.orthographicSize + feet.localPosition.y);
+            newPosition.y = currentLevel.transform.position.y + currentLevel.playerBounds.min.y - feet.localPosition.y;
 
             airborne = false;
             jumped = false;
             doubleJumped = false;
+        }
+
+        // Restraining within view
+        if(newPosition.x < currentLevel.transform.position.x + currentLevel.playerBounds.min.x)
+        {
+            newPosition.x = currentLevel.transform.position.x + currentLevel.playerBounds.min.x;
+        }
+        else if (newPosition.x > currentLevel.transform.position.x + currentLevel.playerBounds.max.x)
+        {
+            newPosition.x = currentLevel.transform.position.x + currentLevel.playerBounds.max.x;
         }
 
         transform.position = newPosition;
@@ -157,7 +168,7 @@ public class Ninja : MonoBehaviour
                         {
                             attacking = true;
 
-                            Boss_Goku boss = iCollider.gameObject.GetComponent<Boss_Goku>();
+                            Boss boss = iCollider.gameObject.GetComponent<Boss>();
                             if (boss)
                             {
                                 boss.OnHit(attackDamage);
