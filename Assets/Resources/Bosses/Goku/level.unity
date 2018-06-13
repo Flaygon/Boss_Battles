@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 223719104}
   - component: {fileID: 223719103}
   m_Layer: 8
-  m_Name: Manager
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,7 +237,6 @@ MonoBehaviour:
   - {fileID: 758148232}
   - {fileID: 280853150}
   - {fileID: 1269329003}
-  transitionTime: 2
   cameraFollowThreshold: 0.5
   cameraMinSize: 7.5
   cameraMaxSize: 20
@@ -401,6 +400,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114998396767034990, guid: 1e39e3fc460f29e4198c4f0065706bd1,
+        type: 2}
+      propertyPath: levelManager
+      value: 
+      objectReference: {fileID: 223719103}
     - target: {fileID: 114789409359575798, guid: 1e39e3fc460f29e4198c4f0065706bd1,
         type: 2}
       propertyPath: levelManager
@@ -411,10 +415,6 @@ Prefab:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1409557100}
-    - target: {fileID: 1276788897294882, guid: 1e39e3fc460f29e4198c4f0065706bd1, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e39e3fc460f29e4198c4f0065706bd1, type: 2}
   m_IsPrefabParent: 0

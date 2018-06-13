@@ -20,13 +20,16 @@ public class LevelManager : MonoBehaviour
     private int nextLevel;
 
     private bool newLevel;
-    public float transitionTime;
+    private float transitionTime;
     private float currentTransitionTime;
 
     private Vector3 preLevelChangeCameraPosition;
     public float cameraFollowThreshold;
     public float cameraMinSize;
     public float cameraMaxSize;
+
+    private Vector3[] playerTransitionPositions = { Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero };
+    private Vector3 bossTransitionPosition = Vector3.zero;
 
     private void Start()
     {
@@ -45,43 +48,63 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(newLevel)
-        {
-            currentTransitionTime += Time.deltaTime;
-            if(currentTransitionTime >= transitionTime)
-            {
-                currentTransitionTime = 0.0f;
-                newLevel = false;
-
-                Vector3 newPos = levels[nextLevel].centerPoint.position;
-                newPos.z = Camera.main.transform.position.z;
-                Camera.main.transform.position = newPos;
-            }
-            else
-            {
-                Vector3 slerpedPosition = Vector3.Lerp(levels[previousLevel].centerPoint.position, levels[nextLevel].centerPoint.position, currentTransitionTime / transitionTime);
-                slerpedPosition.z = Camera.main.transform.position.z;
-                Camera.main.transform.position = slerpedPosition;
-            }
-        }
-
-        if (boss == null || (players[0] == null && players[1] == null && players[2] == null && players[3] == null))
-            SceneManager.LoadScene("charactermenu");
-    }
-
     private void LateUpdate()
     {
-        UpdateCamera();
+        if(!newLevel)
+        {
+            UpdateCamera();
+
+            if (boss == null || (players[0] == null && players[1] == null && players[2] == null && players[3] == null))
+                SceneManager.LoadScene("charactermenu");
+        }
+        else
+        {
+            if (newLevel)
+            {
+                currentTransitionTime += Time.deltaTime;
+                if (currentTransitionTime >= transitionTime)
+                {
+                    currentTransitionTime = 0.0f;
+                    newLevel = false;
+
+                    Vector3 newPos = levels[nextLevel].centerPoint.position;
+                    newPos.z = Camera.main.transform.position.z;
+                    Camera.main.transform.position = newPos;
+                }
+                else
+                {
+                    float transitionDelta = currentTransitionTime / transitionTime;
+
+                    Vector3 slerpedPosition = Vector3.Lerp(levels[previousLevel].centerPoint.position, levels[nextLevel].centerPoint.position, transitionDelta);
+                    slerpedPosition.z = Camera.main.transform.position.z;
+                    Camera.main.transform.position = slerpedPosition;
+
+                    Vector3 positionDistance = bossTransitionPosition - levels[previousLevel].centerPoint.position;
+                    boss.transform.position = Vector3.Lerp(levels[previousLevel].centerPoint.position + positionDistance, levels[nextLevel].centerPoint.position + positionDistance, transitionDelta);
+                    for (int iPlayer = 0; iPlayer < PlayerPrefs.GetInt("NumPlayers", 0) + 1; ++iPlayer)
+                    {
+                        positionDistance = players[iPlayer].transform.position - levels[previousLevel].centerPoint.position;
+                        playerTransitionPositions[iPlayer] = Vector3.Lerp(levels[previousLevel].centerPoint.position + positionDistance, levels[nextLevel].centerPoint.position + positionDistance, transitionDelta);
+                    }
+                }
+            }
+        }
     }
 
-    public void TransitionToLevel(int level)
+    public void TransitionToLevel(int level, float transitionTime)
     {
         preLevelChangeCameraPosition = Camera.main.transform.position;
 
         previousLevel = nextLevel;
         nextLevel = level;
+
+        this.transitionTime = transitionTime;
+
+        bossTransitionPosition = boss.transform.position;
+        for (int iPlayer = 0; iPlayer < PlayerPrefs.GetInt("NumPlayers", 0) + 1; ++iPlayer)
+        {
+            playerTransitionPositions[iPlayer] = players[iPlayer].transform.position;
+        }
 
         newLevel = true;
     }
@@ -118,8 +141,8 @@ public class LevelManager : MonoBehaviour
 
         // Restrict camera to within the bounding box of the current level
         Vector3 restrictedCameraPosition = Camera.main.transform.position;
-        restrictedCameraPosition.x = Mathf.Clamp(Camera.main.transform.position.x, -currentLevel.cameraBounds.extents.x, currentLevel.cameraBounds.extents.x);
-        restrictedCameraPosition.y = Mathf.Clamp(Camera.main.transform.position.y, -currentLevel.cameraBounds.extents.y, currentLevel.cameraBounds.extents.y);
+        restrictedCameraPosition.x = Mathf.Clamp(Camera.main.transform.position.x, currentLevel.centerPoint.position.x + currentLevel.cameraBounds.min.x, currentLevel.centerPoint.position.x + currentLevel.cameraBounds.max.x);
+        restrictedCameraPosition.y = Mathf.Clamp(Camera.main.transform.position.y, currentLevel.centerPoint.position.y + currentLevel.cameraBounds.min.y, currentLevel.centerPoint.position.y + currentLevel.cameraBounds.max.y);
         Camera.main.transform.position = restrictedCameraPosition;
     }
 }

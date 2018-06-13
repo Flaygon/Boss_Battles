@@ -2,27 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Phase_Above : Phase
+public class Phase_Above : PhaseNode
 {
     private enum States
     {
         IDLE,
+
+        DEATH,
 
         NONE,
     }
     private States mainState = States.IDLE;
     private States secondaryState = States.NONE;
 
+    public override void UpdateNode()
+    {
+
+    }
+
     public override void OnHit(int damage)
     {
         if (invincible)
             return;
 
-        boss.currentHealth -= damage;
+        manager.boss.currentHealth -= damage;
 
-        if (boss.currentHealth <= 0)
+        manager.boss.SetHealth(manager.boss.currentHealth);
+
+        if (manager.boss.currentHealth <= 0)
         {
-            Destroy(gameObject);
+            triggered1 = true;
         }
     }
 }

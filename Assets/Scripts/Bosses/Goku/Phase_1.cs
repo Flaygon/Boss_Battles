@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Phase_1 : Phase
+public class Phase_1 : PhaseNode
 {
     public GameObject projectileAsset;
     public GameObject beamWarningAsset;
@@ -45,30 +45,27 @@ public class Phase_1 : Phase
     private States mainState = States.IDLE;
     private States secondaryState = States.NONE;
 
-    private void Update()
+    public override void UpdateNode()
     {
-        if (!running)
-            return;
-
         currentPlayerAttachTime += Time.deltaTime;
 
         Vector3 position = transform.position;
 
-        Level currentLevel = boss.levelManager.GetCurrentLevel();
+        Level currentLevel = manager.levelManager.GetCurrentLevel();
         if (position.y <= currentLevel.transform.position.y + currentLevel.playerBounds.min.y)
         {
             position.y = currentLevel.transform.position.y + currentLevel.playerBounds.min.y;
 
-            body.velocity = Vector2.zero;
-            body.gravityScale = 0.0f;
+            manager.body.velocity = Vector2.zero;
+            manager.body.gravityScale = 0.0f;
         }
 
         if (mainState == States.IDLE && position.y > currentLevel.transform.position.y + currentLevel.playerBounds.min.y)
         {
             SetMainState(States.FALLING_BEGIN);
 
-            body.velocity = Vector2.zero;
-            body.gravityScale = 1.0f;
+            manager.body.velocity = Vector2.zero;
+            manager.body.gravityScale = 1.0f;
         }
 
         switch (mainState)
@@ -119,7 +116,7 @@ public class Phase_1 : Phase
                     ++currentNumProjectilesFired;
 
                     GameObject newAttack = Instantiate(projectileAsset, projectilePosition.position, Quaternion.identity);
-                    newAttack.GetComponent<TurnTowardsTarget>().target = boss.levelManager.players[currentAttackedPlayer].transform;
+                    newAttack.GetComponent<TurnTowardsTarget>().target = manager.levelManager.players[currentAttackedPlayer].transform;
 
                     if (currentNumProjectilesFired >= numProjectileAttacks)
                     {
@@ -132,7 +129,7 @@ public class Phase_1 : Phase
                 if (beamObject == null)
                 {
                     beamObject = Instantiate(beamWarningAsset, beamPosition.position, Quaternion.identity);
-                    beamObject.GetComponent<TurnTowardsTarget>().target = boss.levelManager.players[currentAttackedPlayer].transform;
+                    beamObject.GetComponent<TurnTowardsTarget>().target = manager.levelManager.players[currentAttackedPlayer].transform;
                 }
 
                 currentBeamWarningTime += Time.deltaTime;
@@ -143,7 +140,7 @@ public class Phase_1 : Phase
                     Quaternion warningRotation = beamObject.transform.rotation;
                     Destroy(beamObject);
                     beamObject = Instantiate(beamAsset, beamPosition.position, warningRotation);
-                    beamObject.GetComponent<TurnTowardsTarget>().target = boss.levelManager.players[currentAttackedPlayer].transform;
+                    beamObject.GetComponent<TurnTowardsTarget>().target = manager.levelManager.players[currentAttackedPlayer].transform;
 
                     SetMainState(States.BEAM_FIRING);
                 }
@@ -204,7 +201,7 @@ public class Phase_1 : Phase
     private void SetMainState(States toSet)
     {
         mainState = toSet;
-        animator.SetTrigger(mainState.ToString());
+        manager.animator.SetTrigger(mainState.ToString());
     }
 
     private void SetSecondaryState(States toSet)
@@ -215,9 +212,9 @@ public class Phase_1 : Phase
     private void AttackNewPlayer()
     {
         int numPlayers = 0;
-        for (int iPlayers = 0; iPlayers < boss.levelManager.players.Length; ++iPlayers)
+        for (int iPlayers = 0; iPlayers < manager.levelManager.players.Length; ++iPlayers)
         {
-            if (boss.levelManager.players[iPlayers] != null)
+            if (manager.levelManager.players[iPlayers] != null)
             {
                 ++numPlayers;
             }
@@ -231,13 +228,26 @@ public class Phase_1 : Phase
         if (invincible)
             return;
 
-        boss.currentHealth -= damage;
+        manager.boss.currentHealth -= damage;
 
-        if (boss.currentHealth <= 0)
+        manager.boss.SetHealth(manager.boss.currentHealth);
+
+        if (manager.boss.currentHealth <= 0)
         {
-            boss.SetPhase(4);
-            (boss.GetCurrentPhase() as Phase_Transform).phase = 1;
-            animator.SetTrigger("TRANSFORM");
+            triggered1 = true;
+        }
+    }
+
+    public override void OnEnd()
+    {
+        switch(mainState)
+        {
+            case States.BEAM_WARNING:
+                Destroy(beamObject);
+                break;
+            case States.BEAM_FIRING:
+                Destroy(beamObject);
+                break;
         }
     }
 }

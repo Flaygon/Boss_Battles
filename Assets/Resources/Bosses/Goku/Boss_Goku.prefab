@@ -11,6 +11,38 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1276788897294882}
   m_IsPrefabParent: 1
+--- !u!1 &1129212564185370
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4977312308928696}
+  - component: {fileID: 114634380487022522}
+  m_Layer: 8
+  m_Name: Phase_LevelTransition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1172997683630888
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4298585683871548}
+  - component: {fileID: 114952492410353888}
+  m_Layer: 8
+  m_Name: Phase_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1226220473574716
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,6 +60,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1257048940155400
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4058515433929682}
+  - component: {fileID: 114712745687949150}
+  m_Layer: 8
+  m_Name: Phase_LevelTransition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1276788897294882
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,19 +88,94 @@ GameObject:
   - component: {fileID: 114789409359575798}
   - component: {fileID: 114115266162092778}
   - component: {fileID: 114172958102214022}
-  - component: {fileID: 114661843588270220}
   - component: {fileID: 50505470782561062}
-  - component: {fileID: 114387763218988406}
-  - component: {fileID: 114150332210513696}
-  - component: {fileID: 114207351566482002}
-  - component: {fileID: 114424465702024970}
   m_Layer: 8
   m_Name: Boss_Goku
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
+--- !u!1 &1357085630439800
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4798926592867020}
+  - component: {fileID: 114774717706865356}
+  m_Layer: 8
+  m_Name: Phase_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1397403598887480
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4071293124359454}
+  - component: {fileID: 114597858777167240}
+  m_Layer: 8
+  m_Name: Phase_Death
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1503870062832074
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4548558997158738}
+  - component: {fileID: 114218227110879614}
+  m_Layer: 8
+  m_Name: Phase_Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1535385540232804
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4763108700933152}
+  - component: {fileID: 114766900156428054}
+  m_Layer: 8
+  m_Name: Phase_Below
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1538987714688508
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4722462894473172}
+  - component: {fileID: 114932997429065152}
+  m_Layer: 8
+  m_Name: Phase_Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1643549307272032
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,6 +206,80 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1769697148563162
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4977651202020478}
+  - component: {fileID: 114150595373895440}
+  m_Layer: 8
+  m_Name: Phase_Above
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1801064665150756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4255450441606498}
+  - component: {fileID: 114998396767034990}
+  m_Layer: 8
+  m_Name: PhaseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1890271638288844
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4436565790418712}
+  - component: {fileID: 114240699307030456}
+  m_Layer: 8
+  m_Name: Phase_Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4058515433929682
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257048940155400}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4071293124359454
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397403598887480}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4195479836303638
 Transform:
   m_ObjectHideFlags: 1
@@ -95,6 +292,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4767269985065236}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4255450441606498
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1801064665150756}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4298585683871548}
+  - {fileID: 4548558997158738}
+  - {fileID: 4798926592867020}
+  - {fileID: 4436565790418712}
+  - {fileID: 4977312308928696}
+  - {fileID: 4763108700933152}
+  - {fileID: 4722462894473172}
+  - {fileID: 4058515433929682}
+  - {fileID: 4977651202020478}
+  - {fileID: 4071293124359454}
+  m_Father: {fileID: 4767269985065236}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4298585683871548
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172997683630888}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4423818034982274
 Transform:
@@ -109,6 +342,32 @@ Transform:
   m_Father: {fileID: 4767269985065236}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4436565790418712
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1890271638288844}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4548558997158738
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503870062832074}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4564291334828548
 Transform:
   m_ObjectHideFlags: 1
@@ -121,6 +380,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4767269985065236}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4722462894473172
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1538987714688508}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4763108700933152
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535385540232804}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4767269985065236
 Transform:
@@ -135,8 +420,48 @@ Transform:
   - {fileID: 4423818034982274}
   - {fileID: 4564291334828548}
   - {fileID: 4195479836303638}
+  - {fileID: 4255450441606498}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4798926592867020
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1357085630439800}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4977312308928696
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1129212564185370}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4977651202020478
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1769697148563162}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4255450441606498}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50505470782561062
 Rigidbody2D:
@@ -215,29 +540,34 @@ MonoBehaviour:
   name: Not Goku
   description: This is not the Goku you're looking for
   icon: {fileID: 21300860, guid: e70a8fdf9bea4ea41a01c9ece09bbc0b, type: 3}
---- !u!114 &114150332210513696
+--- !u!114 &114150595373895440
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276788897294882}
+  m_GameObject: {fileID: 1769697148563162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e08b1e2f14ad14bb8a73053346a9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: fb3fb8d1d5eb38b41ba3af0f2f8a48ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 95860194981493080}
-  body: {fileID: 50505470782561062}
-  boss: {fileID: 114789409359575798}
-  health: 1
-  invincible: 1
-  maxMovementSpeed: 0
-  jumpSpeed: 0
-  playerAttachTime: 0
-  idleTimer: 0
-  running: 0
-  transformTime: 4
-  phase: 0
+  manager: {fileID: 114998396767034990}
+  health: 200
+  invincible: 0
+  maxMovementSpeed: 5
+  jumpSpeed: 5
+  playerAttachTime: 5
+  idleTimer: 3
+  node1: {fileID: 114597858777167240}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
 --- !u!114 &114172958102214022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,48 +580,213 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: goku
---- !u!114 &114207351566482002
+--- !u!114 &114218227110879614
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276788897294882}
+  m_GameObject: {fileID: 1503870062832074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3fb8d1d5eb38b41ba3af0f2f8a48ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 48e08b1e2f14ad14bb8a73053346a9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 95860194981493080}
-  body: {fileID: 50505470782561062}
-  boss: {fileID: 114789409359575798}
-  health: 200
-  invincible: 0
-  maxMovementSpeed: 5
-  jumpSpeed: 5
-  playerAttachTime: 5
-  idleTimer: 3
-  running: 0
---- !u!114 &114387763218988406
+  manager: {fileID: 114998396767034990}
+  health: 1
+  invincible: 1
+  maxMovementSpeed: 0
+  jumpSpeed: 0
+  playerAttachTime: 0
+  idleTimer: 0
+  node1: {fileID: 114774717706865356}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
+  transformTime: 4
+--- !u!114 &114240699307030456
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276788897294882}
+  m_GameObject: {fileID: 1890271638288844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e08b1e2f14ad14bb8a73053346a9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114998396767034990}
+  health: 1
+  invincible: 1
+  maxMovementSpeed: 0
+  jumpSpeed: 0
+  playerAttachTime: 0
+  idleTimer: 0
+  node1: {fileID: 114634380487022522}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
+  transformTime: 4
+--- !u!114 &114597858777167240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397403598887480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b676cbbcd791e2d4c8ce821425b509e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114998396767034990}
+  health: 1
+  invincible: 1
+  maxMovementSpeed: 0
+  jumpSpeed: 0
+  playerAttachTime: 0
+  idleTimer: 0
+  node1: {fileID: 0}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
+  deathTime: 5
+--- !u!114 &114634380487022522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1129212564185370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc757684dd10b04c9d1acb04013bfff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114998396767034990}
+  health: 1
+  invincible: 1
+  maxMovementSpeed: 0
+  jumpSpeed: 0
+  playerAttachTime: 0
+  idleTimer: 0
+  node1: {fileID: 114766900156428054}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
+  beginTransitionTime: 1
+  middleTransitionTime: 5
+  endTransitionTime: 3
+  levelToTransitionTo: 1
+--- !u!114 &114712745687949150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257048940155400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc757684dd10b04c9d1acb04013bfff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114998396767034990}
+  health: 1
+  invincible: 1
+  maxMovementSpeed: 0
+  jumpSpeed: 0
+  playerAttachTime: 0
+  idleTimer: 0
+  node1: {fileID: 114150595373895440}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
+  beginTransitionTime: 1
+  middleTransitionTime: 5
+  endTransitionTime: 3
+  levelToTransitionTo: 2
+--- !u!114 &114766900156428054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535385540232804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e117b70e70c42c40bcc651b5ab5d04a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114998396767034990}
+  health: 150
+  invincible: 0
+  maxMovementSpeed: 6
+  jumpSpeed: 6
+  playerAttachTime: 20
+  idleTimer: 1
+  node1: {fileID: 114597858777167240}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
+--- !u!114 &114774717706865356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1357085630439800}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 812cc109d659c7f42ba2fd59da545a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 95860194981493080}
-  body: {fileID: 50505470782561062}
-  boss: {fileID: 114789409359575798}
+  manager: {fileID: 114998396767034990}
   health: 100
   invincible: 0
   maxMovementSpeed: 4
   jumpSpeed: 4
   playerAttachTime: 10
   idleTimer: 1.5
-  running: 0
+  node1: {fileID: 114597858777167240}
+  node2: {fileID: 114240699307030456}
+  node3: {fileID: 114932997429065152}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
   projectileAsset: {fileID: 1832635672797462, guid: 4ba921da5c145824e9aa030692eae58c,
     type: 2}
   fallExplosionAsset: {fileID: 1279521163190852, guid: 59e4537fb4dcc904ba9adcdc9c8e8ce9,
@@ -307,7 +802,7 @@ MonoBehaviour:
   numGroundStompsBeforeStageSwitch: 3
   fallingBeginTime: 0.35
   fallingEndTime: 0.2
---- !u!114 &114424465702024970
+--- !u!114 &114789409359575798
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -315,40 +810,72 @@ MonoBehaviour:
   m_GameObject: {fileID: 1276788897294882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e117b70e70c42c40bcc651b5ab5d04a, type: 3}
+  m_Script: {fileID: 11500000, guid: 57a44449eaf045b4b979a796285dda22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 95860194981493080}
-  body: {fileID: 50505470782561062}
-  boss: {fileID: 114789409359575798}
-  health: 150
-  invincible: 0
-  maxMovementSpeed: 6
-  jumpSpeed: 6
-  playerAttachTime: 20
-  idleTimer: 1
-  running: 0
---- !u!114 &114661843588270220
+  levelManager: {fileID: 0}
+  phaseManager: {fileID: 114998396767034990}
+  playerRange: 2
+  healthBar: {fileID: 0}
+  currentHealth: 0
+  maxfallSpeed: 15
+--- !u!114 &114932997429065152
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276788897294882}
+  m_GameObject: {fileID: 1538987714688508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e08b1e2f14ad14bb8a73053346a9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114998396767034990}
+  health: 1
+  invincible: 1
+  maxMovementSpeed: 0
+  jumpSpeed: 0
+  playerAttachTime: 0
+  idleTimer: 0
+  node1: {fileID: 114712745687949150}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
+  transformTime: 4
+--- !u!114 &114952492410353888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1172997683630888}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a79b23b97ee9d147a6d62fffa3701d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 95860194981493080}
-  body: {fileID: 50505470782561062}
-  boss: {fileID: 114789409359575798}
+  manager: {fileID: 114998396767034990}
   health: 50
   invincible: 0
   maxMovementSpeed: 3
   jumpSpeed: 3
   playerAttachTime: 10
   idleTimer: 2
-  running: 0
+  node1: {fileID: 114218227110879614}
+  node2: {fileID: 0}
+  node3: {fileID: 0}
+  node4: {fileID: 0}
+  node5: {fileID: 0}
+  triggered1: 0
+  triggered2: 0
+  triggered3: 0
+  triggered4: 0
+  triggered5: 0
   projectileAsset: {fileID: 1832635672797462, guid: 4ba921da5c145824e9aa030692eae58c,
     type: 2}
   beamWarningAsset: {fileID: 1551655854027616, guid: 2d37c67eca3ff0e4584c6a9d04408614,
@@ -362,29 +889,22 @@ MonoBehaviour:
   beamTime: 6
   fallingBeginTime: 0.35
   fallingEndTime: 0.2
---- !u!114 &114789409359575798
+--- !u!114 &114998396767034990
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276788897294882}
+  m_GameObject: {fileID: 1801064665150756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a44449eaf045b4b979a796285dda22, type: 3}
+  m_Script: {fileID: 11500000, guid: f17f32af492092c43b721fa03f52eb16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 95860194981493080}
+  body: {fileID: 50505470782561062}
+  boss: {fileID: 114789409359575798}
   levelManager: {fileID: 0}
-  playerRange: 2
-  healthBar: {fileID: 0}
-  currentHealth: 0
-  phases:
-  - {fileID: 114661843588270220}
-  - {fileID: 114387763218988406}
-  - {fileID: 114424465702024970}
-  - {fileID: 114207351566482002}
-  - {fileID: 114150332210513696}
-  currentPhase: 0
-  maxfallSpeed: 15
+  currentPhase: {fileID: 114952492410353888}
 --- !u!212 &212958472558907010
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -425,7 +945,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.34, y: 0.45}
+  m_Size: {x: 0.32, y: 0.37}
   m_AdaptiveModeThreshold: 0.381
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

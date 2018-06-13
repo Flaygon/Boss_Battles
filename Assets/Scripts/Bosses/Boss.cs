@@ -6,21 +6,13 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour
 {
     public LevelManager levelManager;
+    public PhaseManager phaseManager;
 
     public float playerRange;
 
     public Image healthBar;
     [HideInInspector]
     public int currentHealth;
-
-    public Phase[] phases;
-    [HideInInspector]
-    public int currentPhase = 0;
-
-    private void Start()
-    {
-        SetPhase(currentPhase);
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -33,25 +25,15 @@ public class Boss : MonoBehaviour
 
     public void OnHit(int damage)
     {
-        phases[currentPhase].OnHit(damage);
+        phaseManager.OnHit(damage);
 
-        healthBar.fillAmount = currentHealth / (float)phases[currentPhase].health;
+        SetHealth(currentHealth);
     }
 
-    public void SetPhase(int phase)
+    public void SetHealth(int health)
     {
-        // Clear dependencies on previous phase
-        phases[currentPhase].running = false;
+        currentHealth = health;
 
-        currentPhase = phase;
-
-        // Make new dependencies on next phase
-        phases[currentPhase].running = true;
-        currentHealth = phases[currentPhase].health;
-    }
-
-    public Phase GetCurrentPhase()
-    {
-        return phases[currentPhase];
+        healthBar.fillAmount = currentHealth / (float)phaseManager.currentPhase.health;
     }
 }

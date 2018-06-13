@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Phase_2 : Phase
+public class Phase_2 : PhaseNode
 {
     public GameObject projectileAsset;
     public GameObject fallExplosionAsset;
@@ -49,16 +49,15 @@ public class Phase_2 : Phase
 
         FLYING,
 
+        DEATH,
+
         NONE,
     }
     private States mainState = States.IDLE;
     private States secondaryState = States.NONE;
 
-    private void Update()
+    public override void UpdateNode()
     {
-        if (!running)
-            return;
-
         currentPlayerAttachTime += Time.deltaTime;
 
         /*if (secondaryState != States.FLYING)
@@ -68,13 +67,13 @@ public class Phase_2 : Phase
 
         Vector3 position = transform.position;
 
-        Level currentLevel = boss.levelManager.GetCurrentLevel();
+        Level currentLevel = manager.levelManager.GetCurrentLevel();
         if (mainState == States.IDLE && position.y > currentLevel.transform.position.y + currentLevel.cameraBounds.min.y)
         {
             SetMainState(States.FALLING_BEGIN);
 
-            body.velocity = Vector2.zero;
-            body.gravityScale = 1.0f;
+            manager.body.velocity = Vector2.zero;
+            manager.body.gravityScale = 1.0f;
         }
 
         switch (mainState)
@@ -90,8 +89,8 @@ public class Phase_2 : Phase
                         SetMainState(States.FLYING);
                         SetSecondaryState(States.FLYING);
 
-                        body.velocity = Vector2.zero;
-                        body.gravityScale = -1.0f;
+                        manager.body.velocity = Vector2.zero;
+                        manager.body.gravityScale = -1.0f;
                     }
                     else
                     {
@@ -113,8 +112,8 @@ public class Phase_2 : Phase
                 {
                     position.y = currentLevel.transform.position.y + currentLevel.playerBounds.min.y + flyingHeight;
 
-                    body.velocity = Vector2.zero;
-                    body.gravityScale = 0.0f;
+                    manager.body.velocity = Vector2.zero;
+                    manager.body.gravityScale = 0.0f;
 
                     ChooseAttack();
                 }
@@ -127,7 +126,7 @@ public class Phase_2 : Phase
                     ++currentNumProjectilesFired;
 
                     GameObject newAttack = Instantiate(projectileAsset, projectilePosition.position, Quaternion.identity);
-                    newAttack.GetComponent<TurnTowardsTarget>().target = boss.levelManager.players[currentAttackedPlayer].transform;
+                    newAttack.GetComponent<TurnTowardsTarget>().target = manager.levelManager.players[currentAttackedPlayer].transform;
 
                     if (currentNumProjectilesFired >= numProjectileAttacks)
                     {
@@ -140,18 +139,18 @@ public class Phase_2 : Phase
             case States.GROUND_SLAM:
 
                 transform.rotation = Quaternion.identity;
-                Vector3 distanceToPlayer = boss.levelManager.players[currentAttackedPlayer].transform.position - transform.position;
+                Vector3 distanceToPlayer = manager.levelManager.players[currentAttackedPlayer].transform.position - transform.position;
                 Vector3 directionToPlayer = distanceToPlayer.normalized;
                 if (Vector3.Dot(directionToPlayer, Vector3.right) < 0.0f)
                 {
                     transform.Rotate(0.0f, 180.0f, 0.0f);
 
-                    if (distanceToPlayer.magnitude > boss.playerRange)
+                    if (distanceToPlayer.magnitude > manager.boss.playerRange)
                         position.x -= maxMovementSpeed * Time.deltaTime;
                 }
                 else
                 {
-                    if (distanceToPlayer.magnitude > boss.playerRange)
+                    if (distanceToPlayer.magnitude > manager.boss.playerRange)
                         position.x += maxMovementSpeed * Time.deltaTime;
                 }
 
@@ -163,8 +162,8 @@ public class Phase_2 : Phase
                     SetMainState(States.FALLING_BEGIN);
                     SetSecondaryState(States.NONE);
 
-                    body.velocity = Vector2.zero;
-                    body.gravityScale = 1.0f;
+                    manager.body.velocity = Vector2.zero;
+                    manager.body.gravityScale = 1.0f;
                 }
                 break;
             case States.FALLING_BEGIN:
@@ -179,8 +178,8 @@ public class Phase_2 : Phase
             case States.FALLING:
                 if (position.y <= currentLevel.transform.position.y + currentLevel.playerBounds.min.y)
                 {
-                    body.velocity = Vector2.zero;
-                    body.gravityScale = 0.0f;
+                    manager.body.velocity = Vector2.zero;
+                    manager.body.gravityScale = 0.0f;
 
                     Instantiate(fallExplosionAsset, transform.position, Quaternion.identity);
 
@@ -190,12 +189,7 @@ public class Phase_2 : Phase
                     {
                         currentNumGroundStomps = 0;
 
-                        // TRIGGER SPECIAL PHASE SWAP: BELOW
-
-                        boss.SetPhase(4);
-                        (boss.GetCurrentPhase() as Phase_Transform).phase = 2;
-                        animator.SetTrigger("TRANSFORM");
-                        boss.levelManager.TransitionToLevel(1);
+                        triggered2 = true;
                     }
                     else
                     {
@@ -225,12 +219,7 @@ public class Phase_2 : Phase
 
                     Destroy(moonlightObject);
 
-                    // TRIGGER SPECIAL PHASE SWAP: ABOVE
-
-                    boss.SetPhase(4);
-                    (boss.GetCurrentPhase() as Phase_Transform).phase = 3;
-                    animator.SetTrigger("TRANSFORM");
-                    boss.levelManager.TransitionToLevel(2);
+                    triggered3 = true;
                 }
                 break;
         }
@@ -259,7 +248,7 @@ public class Phase_2 : Phase
     private void SetMainState(States toSet)
     {
         mainState = toSet;
-        animator.SetTrigger(mainState.ToString());
+        manager.animator.SetTrigger(mainState.ToString());
     }
 
     private void SetSecondaryState(States toSet)
@@ -270,9 +259,9 @@ public class Phase_2 : Phase
     private void AttackNewPlayer()
     {
         int numPlayers = 0;
-        for (int iPlayers = 0; iPlayers < boss.levelManager.players.Length; ++iPlayers)
+        for (int iPlayers = 0; iPlayers < manager.levelManager.players.Length; ++iPlayers)
         {
-            if (boss.levelManager.players[iPlayers] != null)
+            if (manager.levelManager.players[iPlayers] != null)
             {
                 ++numPlayers;
             }
@@ -286,7 +275,7 @@ public class Phase_2 : Phase
         if (invincible)
             return;
 
-        boss.currentHealth -= damage;
+        manager.boss.currentHealth -= damage;
 
         if (mainState == States.MOONLIGHT)
         {
@@ -297,9 +286,11 @@ public class Phase_2 : Phase
                 Destroy(moonlightObject);
         }
 
-        if (boss.currentHealth <= 0)
+        manager.boss.SetHealth(manager.boss.currentHealth);
+
+        if (manager.boss.currentHealth <= 0)
         {
-            Destroy(gameObject);
+            triggered1 = true;
         }
     }
 }

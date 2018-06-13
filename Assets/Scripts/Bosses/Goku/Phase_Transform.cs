@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Phase_Transform : Phase
+public class Phase_Transform : PhaseNode
 {
     public float transformTime;
     protected float currentTransformTime;
-
-    [HideInInspector]
-    public int phase;
 
     private enum States
     {
@@ -18,21 +15,25 @@ public class Phase_Transform : Phase
     }
     private States mainState = States.BEGIN;
 
-    private void Update()
+    public override void OnBegin()
     {
-        if (!running)
-            return;
+        manager.animator.SetTrigger("TRANSFORM");
 
-        body.velocity = Vector2.zero;
-        body.gravityScale = 0.0f;
+        manager.boss.SetHealth(health);
+    }
+
+    public override void UpdateNode()
+    {
+        manager.body.velocity = Vector2.zero;
+        manager.body.gravityScale = 0.0f;
 
         currentTransformTime += Time.deltaTime;
         if (currentTransformTime >= transformTime)
         {
             currentTransformTime = 0.0f;
 
-            boss.SetPhase(phase);
-            animator.SetTrigger("IDLE");
+            triggered1 = true;
+            manager.animator.SetTrigger("IDLE");
         }
     }
 }
