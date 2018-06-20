@@ -168,10 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4f8eb72f65b774cb4f8f97a38e3fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 200
+  turnSpeed: 100
   target: {fileID: 0}
   forwardDirection: {x: 1, y: 0, z: 0}
   perpendicularToForward: {x: 0, y: 1, z: 0}
+  initialTarget: 0
 --- !u!114 &114338509849065204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   local: 1
-  velocity: {x: 5, y: 0, z: 0}
+  velocity: {x: 8.5, y: 0, z: 0}
   gravity: {x: 0, y: 0, z: 0}
 --- !u!114 &114540289134353880
 MonoBehaviour:

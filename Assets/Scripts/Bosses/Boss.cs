@@ -10,9 +10,11 @@ public class Boss : MonoBehaviour
 
     public float playerRange;
 
-    public Image healthBar;
+    public HealthManager healthManager;
     [HideInInspector]
     public int currentHealth;
+
+    public float maxfallSpeed;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -34,6 +36,6 @@ public class Boss : MonoBehaviour
     {
         currentHealth = health;
 
-        healthBar.fillAmount = currentHealth / (float)phaseManager.currentPhase.health;
+        healthManager.SetHealth(currentHealth);
     }
 }

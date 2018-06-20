@@ -204,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 0
   dummy: 0
+  levelManager: {fileID: 0}
 --- !u!114 &114675415819615790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -238,7 +239,7 @@ MonoBehaviour:
   movementSpeed: 6
   attackSpeed: 0.1
   attackDistance: 0.75
-  attackDamage: 10
+  attackDamage: 3
   attackAsset: {fileID: 1430279999686432, guid: fafe5d4527a059947a69fe6f145314e1,
     type: 2}
   attackLayer:

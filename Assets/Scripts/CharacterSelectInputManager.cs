@@ -24,12 +24,13 @@ public class CharacterSelectInputManager : MonoBehaviour
     private int lastJoystickNum = 0;
 
     private float joystickCheckTime = 0.5f;
-    private float currentJoystickCheckTime;
+    private float currentJoystickCheckTime = 0.0f;
 
     private void Start()
     {
         charactersAvailable = Resources.LoadAll("Characters");
 
+        currentJoystickCheckTime = joystickCheckTime + 1.0f;
         CheckJoysticksConnected();
 
         foreach (CharacterMenuSlotManager iSlotManager in characterSelectionPanels)

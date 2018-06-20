@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public Image bossHealth;
-
     public Transform[] playerSpawns;
 
     public Boss boss;
@@ -33,7 +31,6 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        boss.healthBar = bossHealth;
         boss.levelManager = this;
 
         // spawn player on random spawn point

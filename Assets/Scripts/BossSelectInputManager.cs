@@ -22,7 +22,7 @@ public class BossSelectInputManager : MonoBehaviour
 
     private void Start()
     {
-        bossesAvailable = Resources.LoadAll("Bosses");
+        bossesAvailable = Resources.LoadAll("Bosses/Information");
 
         for (int iPanel = 0; iPanel < bossPanels.Length; ++iPanel)
         {

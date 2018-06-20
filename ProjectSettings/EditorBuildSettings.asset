@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/bossmenu.unity
     guid: f4b927d9c0303664e9173865fda437ab
   - enabled: 1
-    path: Assets/level.unity
+    path: Assets/Resources/Bosses/Goku/level.unity
     guid: ea0384b1429c00f49aec8fb582a27bb2
+  - enabled: 1
+    path: Assets/Resources/Bosses/BabyEmperor/level.unity
+    guid: 7113c0a8e4ff1ea4b84418706f8afcd4
   m_configObjects: {}

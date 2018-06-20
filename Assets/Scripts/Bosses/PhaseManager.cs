@@ -13,6 +13,7 @@ public class PhaseManager : MonoBehaviour
 
     private void Start()
     {
+        boss.healthManager.Init(currentPhase.health);
         boss.SetHealth(currentPhase.health);
     }
 
@@ -46,6 +47,7 @@ public class PhaseManager : MonoBehaviour
     {
         currentPhase.OnEnd();
         currentPhase = nextNode;
+        boss.healthManager.Init(currentPhase.health);
         boss.SetHealth(currentPhase.health);
         currentPhase.OnBegin();
     }

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4f8eb72f65b774cb4f8f97a38e3fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 75
+  turnSpeed: 50
   target: {fileID: 0}
   forwardDirection: {x: 1, y: 0, z: 0}
   perpendicularToForward: {x: 0, y: 1, z: 0}

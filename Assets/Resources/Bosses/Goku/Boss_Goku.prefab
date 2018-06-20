@@ -85,10 +85,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4767269985065236}
   - component: {fileID: 61496098760523464}
-  - component: {fileID: 114789409359575798}
-  - component: {fileID: 114115266162092778}
-  - component: {fileID: 114172958102214022}
   - component: {fileID: 50505470782561062}
+  - component: {fileID: 114478788862622992}
   m_Layer: 8
   m_Name: Boss_Goku
   m_TagString: Untagged
@@ -414,7 +412,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276788897294882}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.67, z: 0}
+  m_LocalPosition: {x: 0, y: -8.22, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 4423818034982274}
@@ -526,20 +524,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114115266162092778
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276788897294882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7ed898d1898e3f47b057f80897b474a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: Not Goku
-  description: This is not the Goku you're looking for
-  icon: {fileID: 21300860, guid: e70a8fdf9bea4ea41a01c9ece09bbc0b, type: 3}
 --- !u!114 &114150595373895440
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -552,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 114998396767034990}
-  health: 200
+  health: 400
   invincible: 0
   maxMovementSpeed: 5
   jumpSpeed: 5
@@ -568,18 +552,6 @@ MonoBehaviour:
   triggered3: 0
   triggered4: 0
   triggered5: 0
---- !u!114 &114172958102214022
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276788897294882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 963fa98141161a448b834b15a3ac33a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: goku
 --- !u!114 &114218227110879614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -638,6 +610,23 @@ MonoBehaviour:
   triggered4: 0
   triggered5: 0
   transformTime: 4
+--- !u!114 &114478788862622992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276788897294882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313f0ba3951f9df46a95dd609a6a1a49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelManager: {fileID: 0}
+  phaseManager: {fileID: 114998396767034990}
+  playerRange: 0.5
+  healthManager: {fileID: 0}
+  currentHealth: 0
+  maxfallSpeed: 10
 --- !u!114 &114597858777167240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -743,7 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 114998396767034990}
-  health: 150
+  health: 300
   invincible: 0
   maxMovementSpeed: 6
   jumpSpeed: 6
@@ -771,12 +760,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 114998396767034990}
-  health: 100
+  health: 200
   invincible: 0
   maxMovementSpeed: 4
   jumpSpeed: 4
   playerAttachTime: 10
-  idleTimer: 1.5
+  idleTimer: 0.5
   node1: {fileID: 114597858777167240}
   node2: {fileID: 114240699307030456}
   node3: {fileID: 114932997429065152}
@@ -795,30 +784,13 @@ MonoBehaviour:
     type: 2}
   projectilePosition: {fileID: 4564291334828548}
   flyingHeight: 5
-  numProjectileAttacks: 20
-  timeBetweenProjectiles: 0.15
+  numProjectileAttacks: 10
+  timeBetweenProjectiles: 0.1
   moonlightGazeTime: 5
   groundStompStalkTime: 3
   numGroundStompsBeforeStageSwitch: 3
   fallingBeginTime: 0.35
   fallingEndTime: 0.2
---- !u!114 &114789409359575798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276788897294882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a44449eaf045b4b979a796285dda22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelManager: {fileID: 0}
-  phaseManager: {fileID: 114998396767034990}
-  playerRange: 2
-  healthBar: {fileID: 0}
-  currentHealth: 0
-  maxfallSpeed: 15
 --- !u!114 &114932997429065152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -860,12 +832,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 114998396767034990}
-  health: 50
+  health: 100
   invincible: 0
   maxMovementSpeed: 3
   jumpSpeed: 3
   playerAttachTime: 10
-  idleTimer: 2
+  idleTimer: 0.5
   node1: {fileID: 114218227110879614}
   node2: {fileID: 0}
   node3: {fileID: 0}
@@ -883,10 +855,10 @@ MonoBehaviour:
   beamAsset: {fileID: 1796861125785462, guid: e7e21db07a95ba34d83bd4742c646a4d, type: 2}
   projectilePosition: {fileID: 4564291334828548}
   beamPosition: {fileID: 4195479836303638}
-  numProjectileAttacks: 5
-  timeBetweenProjectiles: 0.3
-  beamWarningTime: 3
-  beamTime: 6
+  numProjectileAttacks: 6
+  timeBetweenProjectiles: 0.1
+  beamWarningTime: 1
+  beamTime: 3
   fallingBeginTime: 0.35
   fallingEndTime: 0.2
 --- !u!114 &114998396767034990
@@ -902,7 +874,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95860194981493080}
   body: {fileID: 50505470782561062}
-  boss: {fileID: 114789409359575798}
+  boss: {fileID: 114478788862622992}
   levelManager: {fileID: 0}
   currentPhase: {fileID: 114952492410353888}
 --- !u!212 &212958472558907010
