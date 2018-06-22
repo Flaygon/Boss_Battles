@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Phase_Above : PhaseNode
 {
+    public AudioSource transformEnterAudio;
+
     private enum States
     {
         IDLE,
@@ -14,6 +16,11 @@ public class Phase_Above : PhaseNode
     }
     private States mainState = States.IDLE;
     private States secondaryState = States.NONE;
+
+    public override void OnBegin()
+    {
+        transformEnterAudio.Play();
+    }
 
     public override void UpdateNode()
     {

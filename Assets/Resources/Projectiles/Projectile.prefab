@@ -23,10 +23,12 @@ GameObject:
   - component: {fileID: 96426365418708214}
   - component: {fileID: 114338509849065204}
   - component: {fileID: 114029329366459498}
-  - component: {fileID: 114540289134353880}
+  - component: {fileID: 114912864266599296}
   - component: {fileID: 114306000318737938}
   - component: {fileID: 114339427589912222}
-  m_Layer: 0
+  - component: {fileID: 58525219904970726}
+  - component: {fileID: 114610668645965090}
+  m_Layer: 10
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +48,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58525219904970726
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832635672797462}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.08
 --- !u!96 &96426365418708214
 TrailRenderer:
   serializedVersion: 2
@@ -168,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4f8eb72f65b774cb4f8f97a38e3fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 100
+  turnSpeed: 125
   target: {fileID: 0}
   forwardDirection: {x: 1, y: 0, z: 0}
   perpendicularToForward: {x: 0, y: 1, z: 0}
@@ -184,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211bc8e2b7312d245adff4fb436e2a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seconds: 5
+  seconds: 1.5
 --- !u!114 &114339427589912222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,9 +214,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   local: 1
-  velocity: {x: 8.5, y: 0, z: 0}
+  velocity: {x: 10, y: 0, z: 0}
   gravity: {x: 0, y: 0, z: 0}
---- !u!114 &114540289134353880
+--- !u!114 &114610668645965090
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -207,10 +224,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1832635672797462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e498b5659e9c73d40b073d56eae23979, type: 3}
+  m_Script: {fileID: 11500000, guid: fc8fe26912d9b624bb2ace89571a44cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuzzy: 1
+  damage: 2
+--- !u!114 &114912864266599296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832635672797462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87c7aa499ed9544c9be0c9f53f8a4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212999851232307808
 SpriteRenderer:
   m_ObjectHideFlags: 1

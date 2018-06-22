@@ -8,6 +8,11 @@ public class Phase_2 : PhaseNode
     public GameObject fallExplosionAsset;
     public GameObject moonlightAsset;
 
+    public AudioSource transformEnterAudio;
+    public AudioSource projectileAudio;
+    public AudioSource groundStompAudio;
+    public AudioSource moonlightAudio;
+
     private GameObject moonlightObject;
 
     public Transform projectilePosition;
@@ -55,6 +60,11 @@ public class Phase_2 : PhaseNode
     }
     private States mainState = States.IDLE;
     private States secondaryState = States.NONE;
+
+    public override void OnBegin()
+    {
+        transformEnterAudio.Play();
+    }
 
     public override void UpdateNode()
     {
@@ -128,6 +138,8 @@ public class Phase_2 : PhaseNode
                     GameObject newAttack = Instantiate(projectileAsset, projectilePosition.position, Quaternion.identity);
                     newAttack.GetComponent<TurnTowardsTarget>().target = manager.levelManager.players[currentAttackedPlayer].transform;
 
+                    projectileAudio.Play();
+
                     if (currentNumProjectilesFired >= numProjectileAttacks)
                     {
                         currentNumProjectilesFired = 0;
@@ -138,12 +150,12 @@ public class Phase_2 : PhaseNode
                 break;
             case States.GROUND_SLAM:
 
-                transform.rotation = Quaternion.identity;
-                Vector3 distanceToPlayer = manager.levelManager.players[currentAttackedPlayer].transform.position - transform.position;
+                manager.boss.transform.rotation = Quaternion.identity;
+                Vector3 distanceToPlayer = manager.levelManager.players[currentAttackedPlayer].transform.position - manager.boss.transform.position;
                 Vector3 directionToPlayer = distanceToPlayer.normalized;
                 if (Vector3.Dot(directionToPlayer, Vector3.right) < 0.0f)
                 {
-                    transform.Rotate(0.0f, 180.0f, 0.0f);
+                    manager.boss.transform.Rotate(0.0f, 180.0f, 0.0f);
 
                     if (distanceToPlayer.magnitude > manager.boss.playerRange)
                         position.x -= maxMovementSpeed * Time.deltaTime;
@@ -181,15 +193,24 @@ public class Phase_2 : PhaseNode
                     manager.body.velocity = Vector2.zero;
                     manager.body.gravityScale = 0.0f;
 
-                    Instantiate(fallExplosionAsset, transform.position, Quaternion.identity);
-
-                    ++currentNumGroundStomps;
-
-                    if (currentNumGroundStomps >= numGroundStompsBeforeStageSwitch)
+                    if (secondaryState != States.DEATH)
                     {
-                        currentNumGroundStomps = 0;
+                        Instantiate(fallExplosionAsset, manager.boss.transform.position, Quaternion.identity);
 
-                        triggered2 = true;
+                        ++currentNumGroundStomps;
+
+                        groundStompAudio.Play();
+
+                        if (currentNumGroundStomps >= numGroundStompsBeforeStageSwitch)
+                        {
+                            currentNumGroundStomps = 0;
+
+                            triggered2 = true;
+                        }
+                        else
+                        {
+                            SetMainState(States.FALLING_END);
+                        }
                     }
                     else
                     {
@@ -203,13 +224,21 @@ public class Phase_2 : PhaseNode
                 {
                     currentFallingEndTime = 0.0f;
 
-                    SetMainState(States.IDLE);
+                    if (secondaryState != States.DEATH)
+                    {
+                        SetMainState(States.IDLE);
+                    }
+                    else
+                    {
+                        triggered1 = true;
+                    }
                 }
                 break;
             case States.MOONLIGHT:
                 if (moonlightObject == null)
                 {
-                    moonlightObject = Instantiate(moonlightAsset, transform.position, Quaternion.identity);
+                    moonlightObject = Instantiate(moonlightAsset, manager.boss.transform.position, Quaternion.identity);
+                    moonlightAudio.Play();
                 }
 
                 currentMoonlightGazeTime += Time.deltaTime;
@@ -218,6 +247,7 @@ public class Phase_2 : PhaseNode
                     currentMoonlightGazeTime = 0.0f;
 
                     Destroy(moonlightObject);
+                    moonlightAudio.Stop();
 
                     triggered3 = true;
                 }
@@ -229,7 +259,7 @@ public class Phase_2 : PhaseNode
             position.y = currentLevel.transform.position.y + currentLevel.playerBounds.min.y;
         }
 
-        transform.position = position;
+        manager.boss.transform.position = position;
     }
 
     private void ChooseAttack()
@@ -282,6 +312,8 @@ public class Phase_2 : PhaseNode
             currentMoonlightGazeTime = 0.0f;
             SetMainState(States.IDLE);
 
+            moonlightAudio.Stop();
+
             if (moonlightObject != null)
                 Destroy(moonlightObject);
         }
@@ -290,7 +322,18 @@ public class Phase_2 : PhaseNode
 
         if (manager.boss.currentHealth <= 0)
         {
-            triggered1 = true;
+            if(mainState == States.FLYING || mainState == States.GROUND_SLAM || mainState == States.PROJECTILES)
+            {
+                SetMainState(States.FALLING_BEGIN);
+
+                manager.body.velocity = Vector2.zero;
+                manager.body.gravityScale = 1.0f;
+            }
+            else if(mainState != States.FALLING_BEGIN && mainState != States.FALLING && mainState != States.FALLING_END)
+            {
+                triggered1 = true;
+            }
+            SetSecondaryState(States.DEATH);
         }
     }
 }

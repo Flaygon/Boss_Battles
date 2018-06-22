@@ -7,6 +7,13 @@ public class Phase_1 : PhaseNode
     public GameObject projectileAsset;
     public GameObject beamWarningAsset;
     public GameObject beamAsset;
+    public GameObject dashHitAsset;
+
+    public AudioSource projectileAudioAsset;
+    public AudioSource beamWarningAudioAsset;
+    public AudioSource beamAudioAsset;
+    public AudioSource dashAudioAsset;
+    public AudioSource dashHitAudioAsset;
 
     private GameObject beamObject;
 
@@ -28,13 +35,25 @@ public class Phase_1 : PhaseNode
     public float fallingEndTime;
     private float currentFallingEndTime;
 
+    public int dashHits;
+    private int currentDashHits = 0;
+    public float dashHitSpeed;
+    private float currentDashHitSpeed;
+
+    public float dashMovementSpeedMultiplier;
+
     private enum States
     {
         IDLE,
 
         PROJECTILES,
+
+        BEAM_MOVING,
         BEAM_WARNING,
         BEAM_FIRING,
+
+        DASH,
+        DASH_HITTING,
 
         FALLING_BEGIN,
         FALLING,
@@ -49,7 +68,7 @@ public class Phase_1 : PhaseNode
     {
         currentPlayerAttachTime += Time.deltaTime;
 
-        Vector3 position = transform.position;
+        Vector3 position = manager.boss.transform.position;
 
         Level currentLevel = manager.levelManager.GetCurrentLevel();
         if (position.y <= currentLevel.transform.position.y + currentLevel.playerBounds.min.y)
@@ -71,33 +90,11 @@ public class Phase_1 : PhaseNode
         switch (mainState)
         {
             case States.IDLE:
-                /*if (secondaryState == States.STALK)
-                {
-                    transform.rotation = Quaternion.identity;
-                    Vector3 distanceToPlayer = levelManager.players[currentAttackedPlayer].transform.position - transform.position;
-                    Vector3 directionToPlayer = distanceToPlayer.normalized;
-                    if (Vector3.Dot(directionToPlayer, Vector3.right) < 0.0f)
-                    {
-                        transform.Rotate(0.0f, 180.0f, 0.0f);
-
-                        if (distanceToPlayer.magnitude > playerRange)
-                            position.x -= maxMovementSpeed * Time.deltaTime;
-                    }
-                    else
-                    {
-                        if (distanceToPlayer.magnitude > playerRange)
-                            position.x += maxMovementSpeed * Time.deltaTime;
-                    }
-                }*/
-
                 currentIdleTimer += Time.deltaTime;
                 if (currentIdleTimer >= idleTimer)
                 {
                     currentIdleTimer = 0.0f;
                     ChooseAttack();
-
-                    /*if (secondaryState == States.STALK)
-                        secondaryState = States.NONE;*/
 
                     if (currentPlayerAttachTime >= playerAttachTime)
                     {
@@ -109,14 +106,26 @@ public class Phase_1 : PhaseNode
 
                 break;
             case States.PROJECTILES:
+                manager.boss.transform.rotation = Quaternion.identity;
+                Vector3 distanceToRecordedPlayerPositionNoHeight4 = manager.levelManager.players[currentAttackedPlayer].transform.position - manager.boss.transform.position;
+                distanceToRecordedPlayerPositionNoHeight4.y = 0.0f;
+                Vector3 directionToPlayerNoHeight4 = distanceToRecordedPlayerPositionNoHeight4.normalized;
+
+                if (Vector3.Dot(directionToPlayerNoHeight4, Vector3.right) <= 0.0f)
+                {
+                    manager.boss.transform.Rotate(0.0f, 180.0f, 0.0f);
+                }
+
                 currentTimeBetweenProjectiles += Time.deltaTime;
                 if (currentTimeBetweenProjectiles >= timeBetweenProjectiles)
                 {
                     currentTimeBetweenProjectiles = 0.0f;
                     ++currentNumProjectilesFired;
 
-                    GameObject newAttack = Instantiate(projectileAsset, projectilePosition.position, Quaternion.identity);
+                    GameObject newAttack = Instantiate(projectileAsset, projectilePosition.position, projectilePosition.rotation);
                     newAttack.GetComponent<TurnTowardsTarget>().target = manager.levelManager.players[currentAttackedPlayer].transform;
+
+                    projectileAudioAsset.Play();
 
                     if (currentNumProjectilesFired >= numProjectileAttacks)
                     {
@@ -125,11 +134,38 @@ public class Phase_1 : PhaseNode
                     }
                 }
                 break;
+            case States.BEAM_MOVING:
+                manager.boss.transform.rotation = Quaternion.identity;
+                Vector3 distanceToRecordedPlayerPositionNoHeight1 = manager.levelManager.GetCurrentLevel().transform.position - manager.boss.transform.position;
+                distanceToRecordedPlayerPositionNoHeight1.y = 0.0f;
+                Vector3 directionToPlayerNoHeight1 = distanceToRecordedPlayerPositionNoHeight1.normalized;
+
+                if (distanceToRecordedPlayerPositionNoHeight1.magnitude > 1.0f)
+                {
+                    if (Vector3.Dot(directionToPlayerNoHeight1, Vector3.right) <= 0.0f)
+                    {
+                        manager.boss.transform.Rotate(0.0f, 180.0f, 0.0f);
+
+                        position.x -= maxMovementSpeed * Time.deltaTime;
+                    }
+                    else
+                    {
+                        position.x += maxMovementSpeed * Time.deltaTime;
+                    }
+                }
+                else
+                {
+                    position.x = manager.levelManager.GetCurrentLevel().transform.position.x;
+                    SetMainState(States.BEAM_WARNING);
+                }
+                break;
             case States.BEAM_WARNING:
                 if (beamObject == null)
                 {
                     beamObject = Instantiate(beamWarningAsset, beamPosition.position, Quaternion.identity);
                     beamObject.GetComponent<TurnTowardsTarget>().target = manager.levelManager.players[currentAttackedPlayer].transform;
+
+                    beamWarningAudioAsset.Play();
                 }
 
                 currentBeamWarningTime += Time.deltaTime;
@@ -147,11 +183,17 @@ public class Phase_1 : PhaseNode
                 break;
             case States.BEAM_FIRING:
                 currentBeamTime += Time.deltaTime;
+
+                if(!beamAudioAsset.isPlaying)
+                    beamAudioAsset.Play();
+
                 if (currentBeamTime >= beamTime)
                 {
                     currentBeamTime = 0.0f;
 
                     Destroy(beamObject);
+
+                    beamAudioAsset.Stop();
 
                     SetMainState(States.IDLE);
                 }
@@ -180,9 +222,63 @@ public class Phase_1 : PhaseNode
                     SetMainState(States.IDLE);
                 }
                 break;
+            case States.DASH:
+                manager.boss.transform.rotation = Quaternion.identity;
+                Vector3 distanceToRecordedPlayerPositionNoHeight3 = manager.levelManager.players[currentAttackedPlayer].transform.position - manager.boss.transform.position;
+                distanceToRecordedPlayerPositionNoHeight3.y = 0.0f;
+                Vector3 directionToPlayerNoHeight3 = distanceToRecordedPlayerPositionNoHeight3.normalized;
+
+                if (distanceToRecordedPlayerPositionNoHeight3.magnitude > manager.boss.playerRange)
+                {
+                    if (Vector3.Dot(directionToPlayerNoHeight3, Vector3.right) <= 0.0f)
+                    {
+                        manager.boss.transform.Rotate(0.0f, 180.0f, 0.0f);
+
+                        position.x -= maxMovementSpeed * dashMovementSpeedMultiplier * Time.deltaTime;
+                    }
+                    else
+                    {
+                        position.x += maxMovementSpeed * dashMovementSpeedMultiplier  * Time.deltaTime;
+                    }
+                }
+                else
+                {
+                    SetMainState(States.DASH_HITTING);
+                }
+                break;
+            case States.DASH_HITTING:
+                manager.boss.transform.rotation = Quaternion.identity;
+                Vector3 distanceToRecordedPlayerPositionNoHeight2 = manager.levelManager.players[currentAttackedPlayer].transform.position - manager.boss.transform.position;
+                distanceToRecordedPlayerPositionNoHeight2.y = 0.0f;
+                Vector3 directionToPlayerNoHeight2 = distanceToRecordedPlayerPositionNoHeight2.normalized;
+
+                if (Vector3.Dot(directionToPlayerNoHeight2, Vector3.right) <= 0.0f)
+                {
+                    manager.boss.transform.Rotate(0.0f, 180.0f, 0.0f);
+                }
+
+                currentDashHitSpeed += Time.deltaTime;
+                if(currentDashHitSpeed >= dashHitSpeed)
+                {
+                    currentDashHitSpeed = 0.0f;
+
+                    ++currentDashHits;
+
+                    Instantiate(dashHitAsset, projectilePosition.position, manager.boss.transform.rotation);
+
+                    dashHitAudioAsset.Play();
+
+                    if (currentDashHits >= dashHits)
+                    {
+                        currentDashHits = 0;
+
+                        SetMainState(States.IDLE);
+                    }
+                }
+                break;
         }
 
-        transform.position = position;
+        manager.boss.transform.position = position;
     }
 
     private void ChooseAttack()
@@ -193,7 +289,11 @@ public class Phase_1 : PhaseNode
                 SetMainState(States.PROJECTILES);
                 break;
             case 1:
-                SetMainState(States.BEAM_WARNING);
+                SetMainState(States.BEAM_MOVING);
+                break;
+            case 2:
+                SetMainState(States.DASH);
+                dashAudioAsset.Play();
                 break;
         }
     }
@@ -244,9 +344,11 @@ public class Phase_1 : PhaseNode
         {
             case States.BEAM_WARNING:
                 Destroy(beamObject);
+                beamWarningAudioAsset.Stop();
                 break;
             case States.BEAM_FIRING:
                 Destroy(beamObject);
+                beamAudioAsset.Stop();
                 break;
         }
     }

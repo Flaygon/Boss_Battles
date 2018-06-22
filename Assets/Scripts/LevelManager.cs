@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour
     public Boss boss;
     [HideInInspector]
     public GameObject[] players = { null, null, null, null };
+    public PlayerHealthManager playerHealthManager;
 
     public Level[] levels;
 
@@ -29,10 +30,8 @@ public class LevelManager : MonoBehaviour
     private Vector3[] playerTransitionPositions = { Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero };
     private Vector3 bossTransitionPosition = Vector3.zero;
 
-    private void Start()
+    private void Awake()
     {
-        boss.levelManager = this;
-
         // spawn player on random spawn point
         int numPlayers = PlayerPrefs.GetInt("NumPlayers", 0);
         Object[] characters = Resources.LoadAll("Characters");
@@ -42,7 +41,10 @@ public class LevelManager : MonoBehaviour
             players[iPlayer] = Instantiate(characters[playerCharacter], playerSpawns[iPlayer].position, Quaternion.identity) as GameObject;
             players[iPlayer].GetComponent<Player>().playerNum = iPlayer;
             players[iPlayer].GetComponent<Player>().levelManager = this;
+            players[iPlayer].GetComponent<Ninja>().healthManager = playerHealthManager;
         }
+
+        ApplicationManager.Get().PlayMusic(null);
     }
 
     private void LateUpdate()
@@ -51,7 +53,7 @@ public class LevelManager : MonoBehaviour
         {
             UpdateCamera();
 
-            if (boss == null || (players[0] == null && players[1] == null && players[2] == null && players[3] == null))
+            if (boss == null || (CheckPlayerDead(0) && CheckPlayerDead(1) && CheckPlayerDead(2) && CheckPlayerDead(3)))
                 SceneManager.LoadScene("charactermenu");
         }
         else
@@ -80,12 +82,17 @@ public class LevelManager : MonoBehaviour
                     boss.transform.position = Vector3.Lerp(levels[previousLevel].centerPoint.position + positionDistance, levels[nextLevel].centerPoint.position + positionDistance, transitionDelta);
                     for (int iPlayer = 0; iPlayer < PlayerPrefs.GetInt("NumPlayers", 0) + 1; ++iPlayer)
                     {
-                        positionDistance = players[iPlayer].transform.position - levels[previousLevel].centerPoint.position;
-                        playerTransitionPositions[iPlayer] = Vector3.Lerp(levels[previousLevel].centerPoint.position + positionDistance, levels[nextLevel].centerPoint.position + positionDistance, transitionDelta);
+                        positionDistance = playerTransitionPositions[iPlayer] - levels[previousLevel].centerPoint.position;
+                        players[iPlayer].transform.position = Vector3.Lerp(levels[previousLevel].centerPoint.position + positionDistance, levels[nextLevel].centerPoint.position + positionDistance, transitionDelta);
                     }
                 }
             }
         }
+    }
+
+    private bool CheckPlayerDead(int player)
+    {
+        return players[player] == null || players[player].GetComponent<Ninja>().dead;
     }
 
     public void TransitionToLevel(int level, float transitionTime)
@@ -138,8 +145,8 @@ public class LevelManager : MonoBehaviour
 
         // Restrict camera to within the bounding box of the current level
         Vector3 restrictedCameraPosition = Camera.main.transform.position;
-        restrictedCameraPosition.x = Mathf.Clamp(Camera.main.transform.position.x, currentLevel.centerPoint.position.x + currentLevel.cameraBounds.min.x, currentLevel.centerPoint.position.x + currentLevel.cameraBounds.max.x);
-        restrictedCameraPosition.y = Mathf.Clamp(Camera.main.transform.position.y, currentLevel.centerPoint.position.y + currentLevel.cameraBounds.min.y, currentLevel.centerPoint.position.y + currentLevel.cameraBounds.max.y);
+        restrictedCameraPosition.x = Mathf.Clamp(Camera.main.transform.position.x, currentLevel.centerPoint.position.x + currentLevel.cameraBounds.min.x + Camera.main.orthographicSize * 0.5f, currentLevel.centerPoint.position.x + currentLevel.cameraBounds.max.x - Camera.main.orthographicSize * 0.5f);
+        restrictedCameraPosition.y = Mathf.Clamp(Camera.main.transform.position.y, currentLevel.centerPoint.position.y + currentLevel.cameraBounds.min.y + Camera.main.orthographicSize * 0.5f, currentLevel.centerPoint.position.y + currentLevel.cameraBounds.max.y - Camera.main.orthographicSize * 0.5f);
         Camera.main.transform.position = restrictedCameraPosition;
     }
 }

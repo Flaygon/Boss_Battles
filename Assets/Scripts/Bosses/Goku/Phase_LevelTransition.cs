@@ -13,6 +13,9 @@ public class Phase_LevelTransition : PhaseNode
     public float endTransitionTime;
     protected float currentEndTransitionTime;
 
+    public GameObject beginAsset;
+    public GameObject endAsset;
+
     public int levelToTransitionTo;
 
     private enum States
@@ -28,6 +31,9 @@ public class Phase_LevelTransition : PhaseNode
         manager.animator.SetTrigger("BEGIN");
 
         manager.boss.SetHealth(health);
+
+        if (beginAsset != null)
+            Instantiate(beginAsset);
     }
 
     public override void UpdateNode()
@@ -57,6 +63,9 @@ public class Phase_LevelTransition : PhaseNode
 
                     mainState = States.END;
                     manager.animator.SetTrigger("END");
+
+                    if (endAsset != null)
+                        Instantiate(endAsset);
                 }
                 break;
             case States.END:

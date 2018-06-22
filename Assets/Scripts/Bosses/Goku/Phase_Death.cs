@@ -7,9 +7,13 @@ public class Phase_Death : PhaseNode
     public float deathTime;
     protected float currentDeathTime;
 
+    public AudioSource deathAudio;
+
     public override void OnBegin()
     {
         manager.animator.SetTrigger("DEATH");
+
+        deathAudio.Play();
 
         manager.boss.SetHealth(0);
     }

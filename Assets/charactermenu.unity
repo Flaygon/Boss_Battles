@@ -4221,6 +4221,7 @@ MonoBehaviour:
   - {fileID: 1014583222}
   numColumns: 5
   numRows: 2
+  music: {fileID: 8300000, guid: 6a47be6dca02dae43853bcc869dfbfac, type: 3}
 --- !u!224 &1157127843
 RectTransform:
   m_ObjectHideFlags: 0

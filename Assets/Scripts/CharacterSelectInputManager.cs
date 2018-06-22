@@ -26,6 +26,13 @@ public class CharacterSelectInputManager : MonoBehaviour
     private float joystickCheckTime = 0.5f;
     private float currentJoystickCheckTime = 0.0f;
 
+    public AudioClip music;
+
+    private void Awake()
+    {
+        ApplicationManager.Get().PlayMusic(music);
+    }
+
     private void Start()
     {
         charactersAvailable = Resources.LoadAll("Characters");

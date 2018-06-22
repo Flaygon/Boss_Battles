@@ -20,6 +20,13 @@ public class BossSelectInputManager : MonoBehaviour
     public int numColumns;
     public int numRows;
 
+    public AudioClip music;
+
+    private void Awake()
+    {
+        ApplicationManager.Get().PlayMusic(music);
+    }
+
     private void Start()
     {
         bossesAvailable = Resources.LoadAll("Bosses/Information");

@@ -38,8 +38,25 @@ public class Ninja : MonoBehaviour
     private float currentDashTime;
     public float dashDistance;
 
+    public int health;
+    private int currentHealth;
+
+    [HideInInspector]
+    public PlayerHealthManager healthManager;
+
+    [HideInInspector]
+    public bool dead;
+
+    private void Awake()
+    {
+        currentHealth = health;
+    }
+
     private void Update()
     {
+        if (dead)
+            return;
+
         UpdateMovement();
         UpdateAttack();
     }
@@ -88,15 +105,7 @@ public class Ninja : MonoBehaviour
             velocity.x = 0.0f;
         }
 
-        // Gravity
-        if (airborne)
-        {
-            velocity.y = Mathf.Clamp(velocity.y - gravity * Time.deltaTime, -maxGravityVelocity, 9999.0f);
-        }
-        else
-        {
-            velocity.y = 0.0f;
-        }
+        velocity.y = Mathf.Clamp(velocity.y - gravity * Time.deltaTime, -maxGravityVelocity, 9999.0f);
 
         // Final position calculation
         Vector3 newPosition = transform.position;
@@ -122,7 +131,7 @@ public class Ninja : MonoBehaviour
 
         // Restraining to ground
         Level currentLevel = player.levelManager.GetCurrentLevel();
-        if (airborne && newPosition.y < currentLevel.transform.position.y + currentLevel.playerBounds.min.y - feet.localPosition.y)
+        if (newPosition.y < currentLevel.transform.position.y + currentLevel.playerBounds.min.y - feet.localPosition.y)
         {
             newPosition.y = currentLevel.transform.position.y + currentLevel.playerBounds.min.y - feet.localPosition.y;
 
@@ -181,6 +190,23 @@ public class Ninja : MonoBehaviour
         else
         {
             attacking = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        Damage damage = collider.gameObject.GetComponent<Damage>();
+        if(damage != null)
+        {
+            currentHealth -= damage.damage;
+
+            healthManager.SetHealth(currentHealth, health, GetComponent<Player>().playerNum);
+
+            if (currentHealth <= 0)
+            {
+                dead = true;
+                transform.GetChild(0).gameObject.SetActive(false);
+            }
         }
     }
 }
