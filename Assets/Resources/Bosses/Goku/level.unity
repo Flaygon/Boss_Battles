@@ -631,14 +631,14 @@ Prefab:
       objectReference: {fileID: 223719103}
     - target: {fileID: 114478788862622992, guid: 1e39e3fc460f29e4198c4f0065706bd1,
         type: 2}
-      propertyPath: levelManager
-      value: 
-      objectReference: {fileID: 223719103}
-    - target: {fileID: 114478788862622992, guid: 1e39e3fc460f29e4198c4f0065706bd1,
-        type: 2}
       propertyPath: healthManager
       value: 
       objectReference: {fileID: 1070226964}
+    - target: {fileID: 114478788862622992, guid: 1e39e3fc460f29e4198c4f0065706bd1,
+        type: 2}
+      propertyPath: levelManager
+      value: 
+      objectReference: {fileID: 223719103}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e39e3fc460f29e4198c4f0065706bd1, type: 2}
   m_IsPrefabParent: 0
