@@ -30,8 +30,6 @@ public class Phase_LevelTransition : PhaseNode
     {
         manager.animator.SetTrigger("BEGIN");
 
-        manager.boss.SetHealth(health);
-
         if (beginAsset != null)
             Instantiate(beginAsset);
     }

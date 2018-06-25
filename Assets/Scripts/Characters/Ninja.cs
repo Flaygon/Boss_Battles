@@ -2,21 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ninja : MonoBehaviour
+public class Ninja : Character
 {
-    public Sprite icon;
-
-    public Player player;
-    public Transform feet;
-
-    public Vector3 velocity;
-    public float gravity;
-    public float maxGravityVelocity;
-
-    public float movementSpeed;
-
-    private bool jumped = false;
-    private bool airborne = true;
     private bool doubleJumped = false;
 
     private int lastMovementDirection = 1;
@@ -31,57 +18,34 @@ public class Ninja : MonoBehaviour
 
     public GameObject attackAsset;
 
-    public LayerMask attackLayer;
-
     public GameObject dashAsset;
     public float dashTime;
     private float currentDashTime;
     public float dashDistance;
 
-    public int health;
-    private int currentHealth;
-
-    [HideInInspector]
-    public PlayerHealthManager healthManager;
-
-    [HideInInspector]
-    public bool dead;
-
-    private void Awake()
+    protected override void Update()
     {
-        currentHealth = health;
-    }
-
-    private void Update()
-    {
-        if (dead)
+        if (incapacitated)
             return;
 
-        UpdateMovement();
-        UpdateAttack();
+        base.Update();
     }
 
-    private void UpdateMovement()
+    protected override void UpdateJump()
     {
-        currentDashTime += Time.deltaTime;
-
-        if (attacking)
-            return;
-
-        // Jumps
-        if(!doubleJumped)
+        if (!doubleJumped)
         {
-            if(player.GetPositiveAxis("Jump", 0.5f))
+            if (player.GetPositiveAxis("Jump", 0.5f))
             {
-                if(!jumped)
+                if (!jumped)
                 {
-                    if (airborne)
+                    if (airborn)
                     {
                         doubleJumped = true;
                     }
-                    airborne = true;
+                    airborn = true;
 
-                    velocity.y = maxGravityVelocity;
+                    velocity.y = jumpSpeed;
                 }
 
                 jumped = true;
@@ -91,6 +55,14 @@ public class Ninja : MonoBehaviour
                 jumped = false;
             }
         }
+    }
+
+    protected override void UpdateMovement()
+    {
+        currentDashTime += Time.deltaTime;
+
+        if (attacking)
+            return;
 
         // Horizontal movement
         float horizontalAxis = player.GetAxis("Horizontal");
@@ -105,8 +77,6 @@ public class Ninja : MonoBehaviour
             velocity.x = 0.0f;
         }
 
-        velocity.y = Mathf.Clamp(velocity.y - gravity * Time.deltaTime, -maxGravityVelocity, 9999.0f);
-
         // Final position calculation
         Vector3 newPosition = transform.position;
 
@@ -115,8 +85,7 @@ public class Ninja : MonoBehaviour
         {
             currentDashTime = 0.0f;
 
-            if(velocity.y < 0.0f)
-                velocity.y = 0.0f;
+            velocity.y = 0.0f;
 
             Vector3 previousPosition = newPosition;
             newPosition.x += lastMovementDirection * dashDistance;
@@ -131,11 +100,11 @@ public class Ninja : MonoBehaviour
 
         // Restraining to ground
         Level currentLevel = player.levelManager.GetCurrentLevel();
-        if (newPosition.y < currentLevel.transform.position.y + currentLevel.playerBounds.min.y - feet.localPosition.y)
+        if (newPosition.y < currentLevel.transform.position.y + currentLevel.playerBounds.min.y - bottom.localPosition.y)
         {
-            newPosition.y = currentLevel.transform.position.y + currentLevel.playerBounds.min.y - feet.localPosition.y;
+            newPosition.y = currentLevel.transform.position.y + currentLevel.playerBounds.min.y - bottom.localPosition.y;
 
-            airborne = false;
+            airborn = false;
             jumped = false;
             doubleJumped = false;
         }
@@ -153,7 +122,7 @@ public class Ninja : MonoBehaviour
         transform.position = newPosition;
     }
 
-    private void UpdateAttack()
+    protected override void UpdateAttack()
     {
         currentAttackSpeed += Time.deltaTime;
 
@@ -190,23 +159,6 @@ public class Ninja : MonoBehaviour
         else
         {
             attacking = false;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        Damage damage = collider.gameObject.GetComponent<Damage>();
-        if(damage != null)
-        {
-            currentHealth -= damage.damage;
-
-            healthManager.SetHealth(currentHealth, health, GetComponent<Player>().playerNum);
-
-            if (currentHealth <= 0)
-            {
-                dead = true;
-                transform.GetChild(0).gameObject.SetActive(false);
-            }
         }
     }
 }

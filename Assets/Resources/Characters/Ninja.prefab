@@ -279,25 +279,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: d591b4a9cb701b547ac79eaf50ea61d7, type: 3}
   player: {fileID: 114649011940985484}
-  feet: {fileID: 4942028199637776}
-  velocity: {x: 0, y: 0, z: 0}
-  gravity: 10
-  maxGravityVelocity: 10
+  bottom: {fileID: 4942028199637776}
+  jumpSpeed: 9
   movementSpeed: 6
+  health: 50
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  incapacitated: 0
+  healthManager: {fileID: 0}
   attackSpeed: 0.1
   attackDistance: 0.75
   attackDamage: 3
   attackAsset: {fileID: 1430279999686432, guid: fafe5d4527a059947a69fe6f145314e1,
     type: 2}
-  attackLayer:
-    serializedVersion: 2
-    m_Bits: 256
   dashAsset: {fileID: 1838722598050086, guid: 6af23cf445b0e0f4ba8c8d3ad01bb3fb, type: 2}
   dashTime: 1
   dashDistance: 2.5
-  health: 50
-  healthManager: {fileID: 0}
-  dead: 0
 --- !u!212 &212073577103949888
 SpriteRenderer:
   m_ObjectHideFlags: 1

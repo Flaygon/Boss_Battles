@@ -26,7 +26,7 @@ public class Phase_Idle2 : PhaseNode
         {
             manager.boss.currentHealth -= damage;
 
-            manager.boss.SetHealth(manager.boss.currentHealth);
+            manager.boss.healthManager.UpdateHealth(manager.boss.currentHealth, health, 0);
 
             if (manager.boss.currentHealth <= 0)
             {

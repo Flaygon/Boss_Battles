@@ -24,8 +24,6 @@ public class Phase_Transform : PhaseNode
     {
         manager.animator.SetTrigger("TRANSFORM");
 
-        manager.boss.SetHealth(health);
-
         transformBeginAudio.Play();
     }
 

@@ -14,8 +14,6 @@ public class Phase_Death : PhaseNode
         manager.animator.SetTrigger("DEATH");
 
         deathAudio.Play();
-
-        manager.boss.SetHealth(0);
     }
 
     public override void UpdateNode()

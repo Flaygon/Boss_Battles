@@ -5,5 +5,5 @@ using UnityEngine;
 public abstract class HealthManager : MonoBehaviour
 {
     public abstract void Init(int health);
-    public abstract void SetHealth(int health);
+    public abstract void UpdateHealth(int currentHealth, int totalHealth, int entityIndex);
 }

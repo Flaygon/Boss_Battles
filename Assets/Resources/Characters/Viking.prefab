@@ -70,6 +70,8 @@ GameObject:
   - component: {fileID: 114738083550907782}
   - component: {fileID: 114715534636793170}
   - component: {fileID: 114048304741193556}
+  - component: {fileID: 61460046771486468}
+  - component: {fileID: 50514540620850386}
   m_Layer: 11
   m_Name: Viking
   m_TagString: Untagged
@@ -220,6 +222,51 @@ Transform:
   m_Father: {fileID: 4815922491151672}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50514540620850386
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702089393452794}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!61 &61460046771486468
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702089393452794}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &114048304741193556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -247,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 0
   dummy: 0
+  levelManager: {fileID: 0}
 --- !u!114 &114738083550907782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,12 +308,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 99a7d62a561c95d4fb8af4a2a00fa333, type: 3}
   player: {fileID: 114715534636793170}
-  feet: {fileID: 4327976295636612}
-  velocity: {x: 0, y: 0, z: 0}
-  gravity: 10
-  maxGravityVelocity: 10
+  bottom: {fileID: 4327976295636612}
+  jumpSpeed: 7.5
   movementSpeed: 6
-  throwArrow: {fileID: 1993081171708560}
+  health: 80
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  incapacitated: 0
+  healthManager: {fileID: 0}
+  throwArrowObject: {fileID: 1993081171708560}
   axeAsset: {fileID: 1930534108179008, guid: f7056c76e216e9145a15a92e971404ba, type: 2}
   powerAxeAsset: {fileID: 1930534108179008, guid: 6d1c383d7753ace4cb4a950ffcc8fd98,
     type: 2}

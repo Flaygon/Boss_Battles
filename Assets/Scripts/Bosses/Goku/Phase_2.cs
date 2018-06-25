@@ -32,6 +32,9 @@ public class Phase_2 : PhaseNode
     public int numGroundStompsBeforeStageSwitch;
     private int currentNumGroundStomps;
 
+    public ContactFilter2D groundStompBackgroundContactFilter;
+    public float groundStompBackgroundInterractRadius;
+
     public float fallingBeginTime;
     private float currentFallingBeginTime;
     public float fallingEndTime;
@@ -201,6 +204,14 @@ public class Phase_2 : PhaseNode
 
                         groundStompAudio.Play();
 
+                        Collider2D[] hits = new Collider2D[32];
+                        int numHits = Physics2D.OverlapCircle(projectilePosition.position, groundStompBackgroundInterractRadius, groundStompBackgroundContactFilter, hits);
+                        for (int iHit = 0; iHit < numHits; ++iHit)
+                        {
+                            hits[iHit].GetComponent<Rigidbody2D>().gravityScale = 1.0f;
+                            hits[iHit].GetComponent<Rigidbody2D>().velocity = (new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(0.5f, 1.0f), 0.0f)).normalized * Random.Range(4.0f, 7.5f);
+                        }
+
                         if (currentNumGroundStomps >= numGroundStompsBeforeStageSwitch)
                         {
                             currentNumGroundStomps = 0;
@@ -318,7 +329,7 @@ public class Phase_2 : PhaseNode
                 Destroy(moonlightObject);
         }
 
-        manager.boss.SetHealth(manager.boss.currentHealth);
+        manager.boss.healthManager.UpdateHealth(manager.boss.currentHealth, health, 0);
 
         if (manager.boss.currentHealth <= 0)
         {

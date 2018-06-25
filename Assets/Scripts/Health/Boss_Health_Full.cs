@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health_Full : HealthManager
+public class Boss_Health_Full : HealthManager
 {
     public GameObject healthAsset;
     private GameObject healthObject;
 
-    private int totalHealth;
-
     public float visualPaddingX;
     public float visualPaddingY;
 
-    public override void Init(int health)
+    public override void Init(int startHealth)
     {
-        totalHealth = health;
-
         if(healthObject == null)
         {
             healthObject = Instantiate(healthAsset, transform);
@@ -24,10 +20,12 @@ public class Health_Full : HealthManager
             healthTransform.anchorMin = new Vector2(visualPaddingX, visualPaddingY);
             healthTransform.anchorMax = new Vector2(1 - visualPaddingX, 1 - visualPaddingY);
         }
+
+        UpdateHealth(startHealth, startHealth, 0);
     }
 
-    public override void SetHealth(int health)
+    public override void UpdateHealth(int currentHealth, int totalHealth, int entityIndex)
     {
-        healthObject.GetComponent<Image>().fillAmount = (float)health / totalHealth;
+        healthObject.GetComponent<Image>().fillAmount = (float)currentHealth / totalHealth;
     }
 }

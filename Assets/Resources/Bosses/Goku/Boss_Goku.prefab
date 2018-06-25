@@ -2878,12 +2878,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313f0ba3951f9df46a95dd609a6a1a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 0
+  currentHealth: 0
+  healthManager: {fileID: 0}
+  incapacitated: 0
   levelManager: {fileID: 0}
   phaseManager: {fileID: 114998396767034990}
   playerRange: 2
-  healthManager: {fileID: 0}
-  currentHealth: 0
-  maxfallSpeed: 10
 --- !u!114 &114597858777167240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3056,6 +3057,21 @@ MonoBehaviour:
   moonlightGazeTime: 5
   groundStompStalkTime: 3
   numGroundStompsBeforeStageSwitch: 3
+  groundStompBackgroundContactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 28672
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  groundStompBackgroundInterractRadius: 5
   fallingBeginTime: 0.35
   fallingEndTime: 0.2
 --- !u!114 &114932997429065152
@@ -3141,6 +3157,21 @@ MonoBehaviour:
   dashHits: 5
   dashHitSpeed: 0.2
   dashMovementSpeedMultiplier: 2
+  dashHitBackgroundContactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 4096
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  dashHitBackgroundInterractRadius: 3
 --- !u!114 &114998396767034990
 MonoBehaviour:
   m_ObjectHideFlags: 1

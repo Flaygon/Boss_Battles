@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealthManager : MonoBehaviour
+public class Player_Health : HealthManager
 {
     public LevelManager manager;
 
@@ -13,7 +13,7 @@ public class PlayerHealthManager : MonoBehaviour
     public float paddingX;
     public float paddingY;
 
-    private void Start()
+    public override void Init(int startHealth)
     {
         int numPlayers = 0;
         for (int iPlayer = 0; iPlayer < manager.players.Length; ++iPlayer)
@@ -31,7 +31,7 @@ public class PlayerHealthManager : MonoBehaviour
         }
     }
 
-    public void SetHealth(int currentHealth, int health, int player)
+    public override void UpdateHealth(int currentHealth, int health, int player)
     {
         playerHealthObjects[player].fillAmount = (float)currentHealth / health;
     }

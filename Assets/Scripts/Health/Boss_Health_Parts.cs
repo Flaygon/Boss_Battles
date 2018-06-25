@@ -3,29 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health_Parts : HealthManager
+public class Boss_Health_Parts : HealthManager
 {
     public GameObject healthPartAsset;
     private List<GameObject> healthParts = new List<GameObject>();
 
     public int healthPerPart;
 
-    private int totalHealth;
-
     public float visualPaddingX;
     public float visualPaddingY;
 
-    public override void Init(int health)
+    public override void Init(int startHealth)
     {
-        totalHealth = health;
-
         foreach (GameObject iPart in healthParts)
         {
             Destroy(iPart);
         }
         healthParts.Clear();
 
-        int numParts = totalHealth / healthPerPart; // Be sure to make this even out with boss health
+        int numParts = startHealth / healthPerPart; // Be sure to make this even out with boss health
         for(int iPart = 0; iPart < numParts; ++iPart)
         {
             GameObject newPart = Instantiate(healthPartAsset, transform);
@@ -36,9 +32,9 @@ public class Health_Parts : HealthManager
         }
     }
 
-    public override void SetHealth(int health)
+    public override void UpdateHealth(int currentHealth, int totalHealth, int entityIndex)
     {
-        float healthFraction = (float)health / totalHealth;
+        float healthFraction = (float)currentHealth / totalHealth;
         for (int iPart = healthParts.Count - 1; iPart >= 0; --iPart)
         {
             float healthFractionBegin = (float)iPart / healthParts.Count;

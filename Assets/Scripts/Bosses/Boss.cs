@@ -3,39 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Boss : MonoBehaviour
+public class Boss : Entity
 {
     public LevelManager levelManager;
     public PhaseManager phaseManager;
 
     public float playerRange;
 
-    public HealthManager healthManager;
-    [HideInInspector]
-    public int currentHealth;
-
-    public float maxfallSpeed;
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Damage damage = collision.gameObject.GetComponent<Damage>();
         if (damage)
         {
-            OnHit(damage.damage);
+            phaseManager.OnHit(damage.damage);
         }
     }
 
-    public void OnHit(int damage)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        phaseManager.OnHit(damage);
-
-        SetHealth(currentHealth);
+        Damage damage = collider.gameObject.GetComponent<Damage>();
+        if (damage)
+        {
+            phaseManager.OnHit(damage.damage);
+        }
     }
 
-    public void SetHealth(int health)
+    public override void OnHit(int damage)
     {
-        currentHealth = health;
+        phaseManager.OnHit(damage);
+    }
 
-        healthManager.SetHealth(currentHealth);
+    protected override int GetEntityIndex()
+    {
+        return 0;
     }
 }

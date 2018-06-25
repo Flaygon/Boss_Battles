@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
     public Boss boss;
     [HideInInspector]
     public GameObject[] players = { null, null, null, null };
-    public PlayerHealthManager playerHealthManager;
+    public HealthManager playerHealthManager;
 
     public Level[] levels;
 
@@ -41,8 +41,10 @@ public class LevelManager : MonoBehaviour
             players[iPlayer] = Instantiate(characters[playerCharacter], playerSpawns[iPlayer].position, Quaternion.identity) as GameObject;
             players[iPlayer].GetComponent<Player>().playerNum = iPlayer;
             players[iPlayer].GetComponent<Player>().levelManager = this;
-            players[iPlayer].GetComponent<Ninja>().healthManager = playerHealthManager;
+            players[iPlayer].GetComponent<Character>().healthManager = playerHealthManager;
         }
+
+        playerHealthManager.Init(1);
 
         ApplicationManager.Get().PlayMusic(null);
     }
@@ -92,7 +94,7 @@ public class LevelManager : MonoBehaviour
 
     private bool CheckPlayerDead(int player)
     {
-        return players[player] == null || players[player].GetComponent<Ninja>().dead;
+        return players[player] == null || players[player].GetComponent<Character>().incapacitated;
     }
 
     public void TransitionToLevel(int level, float transitionTime)

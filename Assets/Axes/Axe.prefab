@@ -36,12 +36,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4372147375547958}
   - component: {fileID: 114303375206211244}
-  - component: {fileID: 114507066282150166}
   - component: {fileID: 114031490338884786}
-  - component: {fileID: 114567455560297238}
   - component: {fileID: 114796388482902896}
   - component: {fileID: 50008920199673716}
   - component: {fileID: 61168034549136534}
+  - component: {fileID: 114325938369769012}
   m_Layer: 9
   m_Name: Axe
   m_TagString: Untagged
@@ -105,7 +104,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -132,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d499b215610db478b4c60aa6ef5955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  local: 0
   velocity: {x: 0, y: 0, z: 0}
   gravity: {x: 0, y: -10, z: 0}
 --- !u!114 &114303375206211244
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotation: {x: 0, y: 0, z: -270}
---- !u!114 &114507066282150166
+--- !u!114 &114325938369769012
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -154,19 +154,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1930534108179008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e498b5659e9c73d40b073d56eae23979, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fuzzy: 1
---- !u!114 &114567455560297238
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1930534108179008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eaf67e527b66cd4cadd6aeaedabdbfc, type: 3}
+  m_Script: {fileID: 11500000, guid: f87c7aa499ed9544c9be0c9f53f8a4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114796388482902896
@@ -180,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8fe26912d9b624bb2ace89571a44cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 4
 --- !u!212 &212551904333445124
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -194,6 +182,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
